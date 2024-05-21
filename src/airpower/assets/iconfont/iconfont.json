@@ -1,0 +1,44 @@
+{
+  "id": "4525935",
+  "name": "SPower",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "全程复写airpower源码",
+  "glyphs": [
+    {
+      "icon_id": "3091945",
+      "name": "全屏",
+      "font_class": "quanping",
+      "unicode": "e768",
+      "unicode_decimal": 59240
+    },
+    {
+      "icon_id": "3092113",
+      "name": "屏幕全屏",
+      "font_class": "pingmuquanping",
+      "unicode": "e781",
+      "unicode_decimal": 59265
+    },
+    {
+      "icon_id": "2892818",
+      "name": "删除",
+      "font_class": "changyonggoupiaorenshanchu",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "5835481",
+      "name": "详情",
+      "font_class": "xiangqing",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "11372640",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e8ac",
+      "unicode_decimal": 59564
+    }
+  ]
+}

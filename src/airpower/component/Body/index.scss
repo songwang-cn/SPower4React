@@ -1,0 +1,95 @@
+.body {
+    position: fixed;
+    inset: 0;
+    background-color: #fff;
+    display: flex;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        background-color: #001529;
+        width: 250px;
+        transition: all .5s ease-in-out;
+
+
+        &.collapse {
+            width: 80px;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 30px;
+            }
+
+            span {
+                padding: 0 10px;
+                color: #fff;
+                white-space: nowrap;
+            }
+        }
+
+        .menu {
+            flex: 1;
+
+        }
+
+        .copyright {
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .header {
+            height: 50px;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+
+            .bread {
+                display: flex;
+                align-items: center;
+
+                .expand {
+                    cursor: pointer;
+                    transition: all 0.5s;
+
+                    &.collapse {
+                        transform: rotate(-180deg);
+                    }
+
+                    &:hover {
+                        color: var(--link-hover-color)
+                    }
+                }
+
+                .routeName {
+                    padding: 0 10px;
+                    font-size: 14px;
+                }
+            }
+
+
+        }
+
+        .content {
+            flex: 1;
+            padding: 10px;
+            background: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.airLogin {
+    position: fixed;
+    inset: 0;
+    background: url('https://changzheng.test.holdhopecloud.com/assets/login-bg-13579a64.png') center center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .form {
+        padding: 20px;
+        background: #fff;
+    }
+}
