@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, useRoutes } from 'react-router-dom'
+import { BrowserRouter, useRoutes } from 'react-router-dom'
 import { routes } from './config/router'
 
 function RouterView() {

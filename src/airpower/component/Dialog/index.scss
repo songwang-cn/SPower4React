@@ -2,16 +2,17 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, .2);
+    backdrop-filter: blur(5px);
 }
 
 .dialog {
     position: absolute;
     inset: 20%;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, .4);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
     overflow: hidden;
-    animation: dialog-in 300ms;
+    animation: dialog-in 500ms;
     display: flex;
     flex-direction: column;
 
@@ -22,9 +23,6 @@
         border-radius: 0;
     }
 
-    &.shaking {
-        animation: dialog-shake 300ms forwards;
-    }
 
     .header {
         background: #f1f1f1;
@@ -48,7 +46,7 @@
         .ctrls {
             .ctrl {
                 display: inline-block;
-                margin-left: 5px;
+                padding: 0 5px;
                 font-size: 19px;
                 cursor: pointer;
 

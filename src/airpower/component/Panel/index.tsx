@@ -22,7 +22,7 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
     }
 
     return (
-        <div className={isFull ? 'panel fullscreen' : 'panel'}>
+        <div className={isFull ? 'panel full' : 'panel'}>
             <div className="head">
                 <div className="title">
                     {title}
@@ -30,7 +30,7 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
                 {
                     !hideFull &&
                     <div className="ctrl">
-                        <i className={isFull ? 'airpower icon-quanping' : 'airpower icon-pingmuquanping'} onClick={onFullscreen} />
+                        <i className={`airpower ${isFull ? 'icon-quanping' : 'icon-pingmuquanping'}`} onClick={onFullscreen} />
                     </div>
                 }
             </div>

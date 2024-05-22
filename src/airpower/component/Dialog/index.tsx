@@ -1,5 +1,5 @@
 import './index.scss'
-import { SyntheticEvent, useState, useEffect, useRef } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import { Button } from 'antd'
 
 interface DialogPropTypes {
@@ -10,6 +10,7 @@ interface DialogPropTypes {
     footer?: React.ReactNode,
     children?: React.ReactNode
     closeOnClickBack?: boolean
+    param?: any,
     onConfirm: () => void,
     onCancel: () => void,
 }
@@ -31,6 +32,8 @@ const Dialog: React.FC<DialogPropTypes> = ({
     ...props
 }) => {
 
+    console.log(props)
+
     const [isFullScreen, toggleFull] = useState(false)
 
     function onFullscreen() {
@@ -49,30 +52,42 @@ const Dialog: React.FC<DialogPropTypes> = ({
         toggleDragging(true)
     }
 
+    /**
+     * 吸顶阈值
+     */
+    const thresholdDistance = 20
+
     function onMouseMove(e: SyntheticEvent) {
         if (isDragging) {
             const mouseNativeEvent = e.nativeEvent as MouseEvent
-            setLeft(mouseNativeEvent.clientX - startX)
-            setTop(mouseNativeEvent.clientY - startY)
+            if (mouseNativeEvent.clientX - startX <= thresholdDistance) {
+                setLeft(0)
+            } else if (mouseNativeEvent.clientX - startX >= window.innerWidth - getWidthNumber(width) - thresholdDistance) {
+                setLeft(window.innerWidth - getWidthNumber(width))
+            } else {
+                setLeft(mouseNativeEvent.clientX - startX)
+            }
+
+            if (mouseNativeEvent.clientY - startY <= thresholdDistance) {
+                setTop(0)
+            } else if (mouseNativeEvent.clientY - startY >= window.innerHeight - getHeightNumber(width) - thresholdDistance) {
+                setTop(window.innerHeight - getHeightNumber(width))
+            } else {
+                setTop(mouseNativeEvent.clientY - startY)
+            }
         }
     }
 
-    const [isShaking, setShaking] = useState(false)
 
     function onWrapperClick() {
         if (closeOnClickBack) {
             onCancel()
-        } else {
-            setShaking(true)
-            setTimeout(() => {
-                setShaking(false)
-            }, 300)
         }
     }
 
     function getHeightNumber(value: string | number) {
         if (typeof value === 'number') {
-            return value / 2
+            return value
         } else if (value.includes('px')) {
             return parseInt(value.split('px')[0])
         } else if (value.includes('%')) {
@@ -83,7 +98,7 @@ const Dialog: React.FC<DialogPropTypes> = ({
 
     function getWidthNumber(value: string | number) {
         if (typeof value === 'number') {
-            return value / 2
+            return value
         } else if (value.includes('px')) {
             return parseInt(value.split('px')[0])
         } else if (value.includes('%')) {
@@ -114,29 +129,28 @@ const Dialog: React.FC<DialogPropTypes> = ({
         >
             <div
                 className={isFullScreen ? "dialog full" : "dialog"}
-                style={{
-                    width,
-                    height,
-                    top,
-                    left
-                }}
+                style={{ width, height, top, left, transition: isDragging ? 'none' : 'all .3s' }}
             >
-
                 <div
                     className="header"
                     onMouseDown={onMouseDown}
-                    style={{
-                        cursor: isDragging ? 'grabbing' : 'grab'
-                    }}
+                    onDoubleClick={onFullscreen}
+                    style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
                 >
                     <div className="title">{title}</div>
                     <div className="ctrls">
-                        <i className='ctrl airpower icon-pingmuquanping' onClick={onFullscreen} />
-                        <i className='ctrl airpower icon-guanbi' onClick={onCancel} />
+                        <i
+                            className={`ctrl airpower ${isFullScreen ? 'icon-quanping' : 'icon-pingmuquanping'}`}
+                            onClick={onFullscreen} onMouseDown={(e) => e.stopPropagation()}
+                        />
+                        <i
+                            className='ctrl airpower icon-guanbi'
+                            onClick={onCancel} onMouseDown={(e) => e.stopPropagation()}
+                        />
                     </div>
                 </div>
                 <div className="dialog_body">
-
+                    {props.children}
                 </div>
                 <div className="footer">
                     {

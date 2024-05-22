@@ -36,3 +36,15 @@
         transform: scale(1);
     }
 }
+
+@keyframes panel-in {
+    0% {
+        transform: translateX(-12px);
+        opacity: .2;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
