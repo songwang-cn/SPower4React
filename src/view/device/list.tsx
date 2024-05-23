@@ -13,7 +13,7 @@ const List = () => {
 
     return (
         <APanel title="设备列表">
-            <Button onClick={onDetail}>详情</Button>
+            <Button type="primary" onClick={onDetail}>详情</Button>
         </APanel>
     )
 }

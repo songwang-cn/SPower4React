@@ -1,5 +1,9 @@
+import Theme from '@/airpower/assets/css/theme.scss'
+
+console.log(Theme.split(';'))
+
 export default {
     token: {
-        colorPrimary: '#f39800',
+        colorPrimary: 'var(--ant-color-primary)',
     },
 }
