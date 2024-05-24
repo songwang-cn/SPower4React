@@ -32,8 +32,6 @@ const Dialog: React.FC<DialogPropTypes> = ({
     ...props
 }) => {
 
-    console.log(props)
-
     const [isFullScreen, toggleFull] = useState(false)
 
     function onFullscreen() {
@@ -70,8 +68,8 @@ const Dialog: React.FC<DialogPropTypes> = ({
 
             if (mouseNativeEvent.clientY - startY <= thresholdDistance) {
                 setTop(0)
-            } else if (mouseNativeEvent.clientY - startY >= window.innerHeight - getHeightNumber(width) - thresholdDistance) {
-                setTop(window.innerHeight - getHeightNumber(width))
+            } else if (mouseNativeEvent.clientY - startY >= window.innerHeight - getHeightNumber(height) - thresholdDistance) {
+                setTop(window.innerHeight - getHeightNumber(height))
             } else {
                 setTop(mouseNativeEvent.clientY - startY)
             }

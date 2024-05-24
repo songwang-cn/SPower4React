@@ -2,17 +2,17 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, .2);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
 }
 
 .dialog {
     position: absolute;
     inset: 20%;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+    border-radius: var(--border-radius);
+    box-shadow: var(--border-shadow);
     overflow: hidden;
-    animation: dialog-in 500ms;
+    animation: dialog-in var(--transition-duration);
     display: flex;
     flex-direction: column;
 
@@ -32,11 +32,6 @@
         padding: 10px;
         user-select: none;
         cursor: grab;
-        transition: all .5s;
-
-        &:hover {
-            box-shadow: 0 0 20px #f1f1f1;
-        }
 
         .title {
             font-size: 17px;
@@ -49,9 +44,10 @@
                 padding: 0 5px;
                 font-size: 19px;
                 cursor: pointer;
+                transition: var(--transition-duration);
 
                 &:hover {
-                    color: var(--primary-color)
+                    color: var(--color-primary)
                 }
             }
         }

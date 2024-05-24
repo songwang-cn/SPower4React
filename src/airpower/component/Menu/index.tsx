@@ -1,4 +1,4 @@
-import { Menu as AntMenu } from 'antd'
+import * as ANTD from 'antd'
 import { IRouter } from '@/airpower/interface/IRouter'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ const Menu: React.FC<{ menuList: IRouter[], collapse?: boolean }> = ({ menuList,
     }
 
     return (
-        <AntMenu
+        <ANTD.Menu
             mode='inline'
             theme='dark'
             onClick={handleClick}
@@ -20,19 +20,19 @@ const Menu: React.FC<{ menuList: IRouter[], collapse?: boolean }> = ({ menuList,
             inlineCollapsed={collapse}
         >
             <MenuItem menulist={menuList} />
-        </AntMenu>
+        </ANTD.Menu>
     )
 }
 
 const MenuItem: React.FC<{ menulist: IRouter[] }> = ({ menulist }) => {
     return (
         menulist.map(route => route.children && route.children.length ?
-            <AntMenu.SubMenu eventKey={route.name} title={route.name} icon={<i className={'airpower ' + route.icon} />}>
+            <ANTD.Menu.SubMenu eventKey={route.name} title={route.name} icon={<i className={'airpower ' + route.icon} />}>
                 <MenuItem menulist={route.children} />
-            </AntMenu.SubMenu> :
-            <AntMenu.Item eventKey={route.path} icon={<i className={'airpower ' + route.icon} />}>
+            </ANTD.Menu.SubMenu> :
+            <ANTD.Menu.Item eventKey={route.path} icon={<i className={'airpower ' + route.icon} />}>
                 {route.name}
-            </AntMenu.Item>)
+            </ANTD.Menu.Item>)
     )
 }
 

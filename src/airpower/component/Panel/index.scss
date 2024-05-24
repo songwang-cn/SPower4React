@@ -3,13 +3,13 @@
     display: flex;
     flex-direction: column;
     background: #fff;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .12);
-    transition: all .2s ease-in-out;
+    box-shadow: var(--border-shadow);
+    transition: all var(--transition-duration) ease-in-out;
     left: 15%;
     top: 8%;
-    animation: panel-in .3s ease-in-out;
+    animation: panel-in var(--transition-duration) ease-in-out;
 
     &.full {
         position: fixed;
@@ -39,9 +39,10 @@
                 padding: 0 5px;
                 font-size: 20px;
                 cursor: pointer;
+                transition: var(--transition-duration);
 
                 &:hover {
-                    color: var(--ant-color-primary)
+                    color: var(--color-primary)
                 }
             }
         }

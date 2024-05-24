@@ -10,6 +10,8 @@ export default defineConfig({
     },
   },
   server: {
-    port: 6789
+    port: 6789,
+    open: true, // 运行后主动打开浏览器
+    hmr: true,  // 开启热更新
   }
 })

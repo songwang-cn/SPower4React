@@ -1,7 +1,10 @@
 :root {
-  --ant-color-primary: rgb(255, 0, 0);
-  --ant-color-success: #52c41a;
-  --ant-color-warning: #faad14;
-  --ant-color-error: #ff4d4f;
-  --ant-color-info: #1677ff;
+  --color-primary: rgb(243, 152, 0);
+  --color-success: rgb(82, 196, 26);
+  --color-warning: rgb(250, 173, 20);
+  --color-error: rgb(255, 77, 79);
+  --color-info: rgb(203, 221, 247);
+  --border-radius: 10px;
+  --border-shadow: 0 2px 15px #bbb;
+  --transition-duration: 0.3s;
 }

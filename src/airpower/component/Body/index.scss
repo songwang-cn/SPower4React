@@ -9,7 +9,7 @@
         flex-direction: column;
         background-color: #001529;
         width: 250px;
-        transition: all .5s ease-in-out;
+        transition: all var(--transition-duration) ease-in-out;
 
 
         &.collapse {
@@ -63,14 +63,14 @@
 
                 .expand {
                     cursor: pointer;
-                    transition: all 0.5s;
+                    transition: all var(--transition-duration);
 
                     &.collapse {
                         transform: rotate(-180deg);
                     }
 
                     &:hover {
-                        color: var(--link-hover-color)
+                        color: var(--color-primary)
                     }
                 }
 
