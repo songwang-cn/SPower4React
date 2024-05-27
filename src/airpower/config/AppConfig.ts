@@ -1,5 +1,8 @@
 import { IRouter } from "../interface/IRouter";
 
 export class AppConfig {
-    routes!: IRouter[]
+
+    static appId: string = 'SPower4React'
+
+    static routes: IRouter[]
 }

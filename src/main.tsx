@@ -1,3 +1,8 @@
+// 引入 TS 反射库
+import 'reflect-metadata'
+// 引入 ES6 垫片
+import 'es6-shim'
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'

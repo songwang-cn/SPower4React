@@ -102,3 +102,16 @@ input[type="number"] {
     }
   }
 }
+
+.hoverIcon {
+  cursor: pointer;
+  transition: var(--transition-duration);
+
+  &:hover {
+    color: var(--color-primary)
+  }
+}
+
+.primaryIcon {
+  color: var(--color-primary);
+}

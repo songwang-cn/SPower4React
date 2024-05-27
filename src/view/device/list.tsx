@@ -2,41 +2,36 @@ import { DialogHelper } from "@/airpower/helper/DialogHelper"
 import { APanel, ATable, AButton } from "@/airpower/component"
 import Detail from "./detail"
 import { Tag } from "antd"
+import { DeviceEntity } from "@/entity/DeviceEntity"
 
 
 const List = () => {
-    function onDetail(row: any) {
+    function onDetail(row: DeviceEntity) {
+        DialogHelper.show(Detail, row.copy())
+    }
+
+    function onEdit(row: DeviceEntity) {
         DialogHelper.show(Detail, row)
     }
 
-    function onEdit(row: any) {
-        DialogHelper.show(Detail, row)
-    }
-
-    function onDelete(row: any) {
+    function onDelete(row: DeviceEntity) {
         console.log('删除')
     }
 
     const dataList = [
-        {
+        new DeviceEntity({
             id: 1,
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            id: 2,
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
+            name: '设备1',
+            code: 'code1338',
+            type: '生产设备',
+            status: ['nice', 'developer'],
+        })
     ]
 
     return (
         <APanel title="设备列表">
             <ATable
+                entity={DeviceEntity}
                 dataList={dataList}
                 ctrlWidth={400}
                 beforeCtrl={<>前自定义内容</>}
@@ -44,8 +39,7 @@ const List = () => {
                 onDetail={onDetail}
                 onEdit={onEdit}
                 onDelete={onDelete}
-                tags={(param: any) => <Tag>{param[0]}</Tag>}
-                address={(param: any) => <Tag>{param}</Tag>}
+                status={(text: string) => <Tag>{text}</Tag>}
             />
         </APanel>
     )

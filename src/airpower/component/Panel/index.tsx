@@ -1,5 +1,6 @@
 import './index.scss'
 import { useState } from 'react'
+import { DesktopOutlined } from '@ant-design/icons'
 
 interface PanelPropTypes {
     title?: string
@@ -25,7 +26,8 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
         <div className={isFull ? 'panel full' : 'panel'}>
             <div className="head">
                 <div className="title">
-                    {title}
+                    <DesktopOutlined className='primaryIcon' />
+                    <span className='tit_text'>{title}</span>
                 </div>
                 {
                     !hideFull &&
