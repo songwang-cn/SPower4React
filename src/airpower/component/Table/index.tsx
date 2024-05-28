@@ -66,34 +66,23 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
         return fieldConfig?.isTag ? <ANTD.Tag style={{ margin: '2px' }}>{isCopyDom()}</ANTD.Tag> : isCopyDom()
     }
 
-    const FieldPopoverNode: React.FC = () => {
+    const FieldPopoverContent: React.FC = () => {
         return (
-            <ANTD.Popover
-                title="请选择需要显示的字段"
-                trigger="click"
-                placement="bottomRight"
-                arrow={false}
-                content={
-                    <div className='select_fields_pop'>
-                        {allFieldList.map((fieldKey: string) =>
-                            <ANTD.Tag.CheckableTag
-                                checked={selectedFieldList.includes(fieldKey)}
-                                onChange={(checked: boolean) => {
-                                    const __selectedFieldList = checked ? [...selectedFieldList, fieldKey] : selectedFieldList.filter((key: string) => key !== fieldKey)
-                                    setSelectedFieldList(__selectedFieldList)
-                                    localStorage.setItem(`select_fields_of_${AppConfig.appId}_${entity.name}`, JSON.stringify(__selectedFieldList))
-                                }}
-                            >
-                                {entityClass.getTableFieldName(fieldKey)}
-                            </ANTD.Tag.CheckableTag>
-                        )}
-                    </div>
-                }
-            >
-                <ANTD.Tooltip title="配置列字段">
-                    <SettingOutlined className='hoverIcon' />
-                </ANTD.Tooltip>
-            </ANTD.Popover>
+            <div className='select_fields_pop'>
+                {allFieldList.map((fieldKey: string) =>
+                    <ANTD.Tag.CheckableTag
+                        checked={selectedFieldList.includes(fieldKey)}
+                        onChange={(checked: boolean) => {
+                            const __selectedFieldList = checked ? [...selectedFieldList, fieldKey] : selectedFieldList.filter((key: string) => key !== fieldKey)
+                            setSelectedFieldList(__selectedFieldList)
+                            localStorage.setItem(`select_fields_of_${AppConfig.appId}_${entity.name}`, JSON.stringify(__selectedFieldList))
+                        }}
+                    >
+                        {entityClass.getTableFieldName(fieldKey)}
+                    </ANTD.Tag.CheckableTag>
+                )}
+            </div>
+
         )
     }
 
@@ -151,7 +140,17 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
                 title={
                     <div className='actionHeadet'>
                         <span>操作</span>
-                        <FieldPopoverNode />
+                        <ANTD.Popover
+                            title="请选择需要显示的字段"
+                            trigger="click"
+                            placement="bottomRight"
+                            arrow={false}
+                            content={<FieldPopoverContent />}
+                        >
+                            <ANTD.Tooltip title="配置列字段">
+                                <SettingOutlined className='hoverIcon' />
+                            </ANTD.Tooltip>
+                        </ANTD.Popover>
                     </div>
                 }
                 key="action"
