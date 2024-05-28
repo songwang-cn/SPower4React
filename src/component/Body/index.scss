@@ -11,7 +11,6 @@
         width: 250px;
         transition: all var(--transition-duration) ease-in-out;
 
-
         &.collapse {
             width: 80px;
         }
@@ -39,9 +38,12 @@
         }
 
         .copyright {
-            height: 50px;
+            background-color: #000;
+            font-size: 14px;
+            color: #fff;
+            line-height: 40px;
             text-align: center;
-            line-height: 50px;
+            white-space: nowrap;
         }
     }
 
@@ -79,8 +81,6 @@
                     font-size: 14px;
                 }
             }
-
-
         }
 
         .content {

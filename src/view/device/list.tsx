@@ -1,8 +1,9 @@
 import { DialogHelper } from "@/airpower/helper/DialogHelper"
 import { APanel, ATable, AButton } from "@/airpower/component"
 import Detail from "./detail"
-import { Tag } from "antd"
 import { DeviceEntity } from "@/entity/DeviceEntity"
+import { UserEntity } from "@/entity/UserEntity"
+import { RoleEntity } from "@/entity/RoleEntity"
 
 
 const List = () => {
@@ -21,25 +22,42 @@ const List = () => {
     const dataList = [
         new DeviceEntity({
             id: 1,
-            name: '设备1',
+            name: '设备',
             code: 'code1338',
             type: '生产设备',
             status: ['nice', 'developer'],
+            responseUser: [
+                new UserEntity({
+                    id: 1,
+                    userName: '张三',
+                    phoneNumber: '13333333333',
+                    roleInfo: new RoleEntity({
+                        id: 1,
+                        roleName: '管理员',
+                        roleCode: 'admin'
+                    })
+                })
+            ],
         })
     ]
+
+
 
     return (
         <APanel title="设备列表">
             <ATable
+                hideIndex
+                hideSelect
                 entity={DeviceEntity}
                 dataList={dataList}
                 ctrlWidth={400}
-                beforeCtrl={<>前自定义内容</>}
-                endCtrl={<AButton>后自定义内容</AButton>}
+                childrenColumnName="sons"
+                beforeCtrl={(record, index) => <>前插槽</>}
+                endCtrl={(record, index) => <>后插槽</>}
+                // customCtrl={(record, index) => <>自定义操作列</>}
                 onDetail={onDetail}
                 onEdit={onEdit}
                 onDelete={onDelete}
-                status={(text: string) => <Tag>{text}</Tag>}
             />
         </APanel>
     )

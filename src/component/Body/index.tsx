@@ -5,7 +5,7 @@ import AMenu from '@/airpower/component/Menu'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { IRouter } from '@/airpower/interface/IRouter'
-
+import { AppConfig } from '@/config/AppConfig'
 
 function getRouteNameByPath(path: string) {
     let routeName = ''
@@ -38,15 +38,14 @@ const Body: React.FC<{ menuList: IRouter[], children?: React.ReactNode }> = ({ m
                 <div className="logo">
                     <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" alt="" />
                     {
-                        !collapse && <span>react-airpower</span>
+                        !collapse && <span>{AppConfig.appId}</span>
                     }
-
                 </div>
                 <div className='menu'>
                     <AMenu menuList={menuList} collapse={collapse} />
                 </div>
                 <div className="copyright">
-                    &copy;
+                    {collapse ? 'HoldHope' : 'HoldHope @ 2024'}
                 </div>
             </div>
             <div className="right">

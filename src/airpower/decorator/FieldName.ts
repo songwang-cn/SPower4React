@@ -7,5 +7,15 @@ export const FieldName = <E extends AModel>(fieldName: string) => (target: E, ke
 }
 
 export function getFieldName<E extends AModel>(target: E, key: string) {
-    return Reflect.getOwnMetadata(FieldNameKey, target, key)
+    let fieldName = Reflect.getOwnMetadata(FieldNameKey, target, key)
+    if (fieldName) {
+        return fieldName
+    }
+    const superClass = Object.getPrototypeOf(target)
+    if (superClass.constructor.name === AModel.name) {
+        return key
+    }
+    fieldName = getFieldName(superClass, key)
+    return fieldName
+
 }

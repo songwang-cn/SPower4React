@@ -1,3 +1,4 @@
+import { AirTableFieldConfig } from "../config/AirTableFieldConfig"
 import { ITableFieldConfig } from "../interface/ITableFieldConfig"
 import { AModel } from "../model/AModel"
 
@@ -26,8 +27,13 @@ export const TableField = <E extends AModel>(tableFieldConfig?: ITableFieldConfi
  * @param target 目标对象
  * @returns string[]
  */
-export function getTableFieldList<E extends AModel>(target: E) {
-    return Reflect.getOwnMetadata(TableFieldListKey, target)
+export function getTableFieldList<E extends AModel>(target: E): string[] {
+    let list = Reflect.getOwnMetadata(TableFieldListKey, target) || []
+    const superClass = Object.getPrototypeOf(target)
+    if (superClass.constructor.name !== AModel.name) {
+        list = list.concat(getTableFieldList(superClass))
+    }
+    return list
 }
 
 /**
@@ -36,6 +42,12 @@ export function getTableFieldList<E extends AModel>(target: E) {
  * @param key 目标字段
  * @returns AirTableConfig
  */
-export function getTableFieldConfig<E extends AModel>(target: E, key: string) {
-    return Reflect.getOwnMetadata(TableFieldConfigKey, target, key)
+export function getTableFieldConfig<E extends AModel>(target: E, fieldKey: string): AirTableFieldConfig {
+    let config = Reflect.getOwnMetadata(TableFieldConfigKey, target, fieldKey) || {}
+    const superClass = Object.getPrototypeOf(target)
+    if (superClass.constructor.name !== AModel.name) {
+        config = Object.assign(getTableFieldConfig(superClass, fieldKey), config)
+    }
+
+    return config
 }

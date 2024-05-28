@@ -3,6 +3,30 @@
     justify-content: space-between;
 }
 
+.select_fields_pop {
+    max-width: 350px;
+
+    .ant-tag {
+        width: 66px;
+        text-align: center;
+        margin: 2px;
+    }
+}
+
+.expandIcon {
+    color: #ccc;
+    margin-right: 4px;
+    transition: all var(--transition-duration);
+
+    &:hover {
+        color: var(--color-primary);
+    }
+
+    &.expanded {
+        transform: rotate(90deg);
+    }
+}
+
 .copyField {
     cursor: pointer;
     color: var(--color-primary);
