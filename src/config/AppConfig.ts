@@ -1,7 +1,7 @@
 import { AirDateTimeFormatter } from '@/airpower/enum/AirDateTimeFormatter'
 import { AirHttpStatus } from '@/airpower/enum/AirHttpStatus'
 import { INormalTreeProps } from '@/airpower/interface/INormalTreeProps'
-import AppStore from '@/store'
+import { AppStore } from '@/store'
 import type { NotificationArgsProps } from 'antd';
 
 type NotificationPlacement = NotificationArgsProps['placement'];

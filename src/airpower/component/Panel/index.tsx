@@ -1,7 +1,7 @@
 import './index.scss'
 import { useState } from 'react'
 import { DesktopOutlined } from '@ant-design/icons'
-import AppStore from '@/store'
+import { AppStore } from '@/store'
 import { observer } from 'mobx-react';
 
 interface PanelPropTypes {
@@ -16,7 +16,7 @@ interface PanelPropTypes {
  * @param hideFull-是否隐藏全屏按钮
  */
 
-const Panel: React.FC<PanelPropTypes> = observer(({ title = '面板标题', hideFull = false, ...props }) => {
+const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = false, ...props }) => {
 
     const [isFull, toggleFull] = useState(false)
 
@@ -44,6 +44,6 @@ const Panel: React.FC<PanelPropTypes> = observer(({ title = '面板标题', hide
             </div>
         </div>
     )
-})
+}
 
-export default Panel
+export default observer(Panel)
