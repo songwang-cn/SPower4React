@@ -38,7 +38,7 @@ const Body: React.FC<{ menuList: IRouter[], children?: React.ReactNode }> = ({ m
                 <div className="logo">
                     <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" alt="" />
                     {
-                        !collapse && <span>{AppConfig.appId}</span>
+                        !collapse && <span>{AppConfig.appName}</span>
                     }
                 </div>
                 <div className='menu'>

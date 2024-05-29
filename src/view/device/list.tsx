@@ -4,6 +4,7 @@ import Detail from "./detail"
 import { DeviceEntity } from "@/entity/DeviceEntity"
 import { UserEntity } from "@/entity/UserEntity"
 import { RoleEntity } from "@/entity/RoleEntity"
+import { AirNotification } from "@/airpower/feedback/AirNotification"
 
 
 const List = () => {
@@ -17,6 +18,7 @@ const List = () => {
 
     function onDelete(row: DeviceEntity) {
         console.log('删除')
+        AirNotification.warning('深处')
     }
 
     const dataList = [

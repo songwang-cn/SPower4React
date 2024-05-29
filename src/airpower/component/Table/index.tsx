@@ -82,7 +82,6 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
                     </ANTD.Tag.CheckableTag>
                 )}
             </div>
-
         )
     }
 
