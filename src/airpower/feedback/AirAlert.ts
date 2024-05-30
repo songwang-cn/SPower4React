@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Modal } from 'antd'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
 import { ReactNode } from 'react'
-
-
 /**
  * # 消息弹窗类
  * @author Hamm
@@ -30,14 +27,9 @@ export class AirAlert {
   protected cancelText!: string
 
   /**
-   * # 可选的确认图标类型
+   * # Modal 支持的静态方法
    */
-  protected icon = AirFeedbackIcon.NONE
-
-  /**
-   * # 是否启用HTML富文本
-   */
-  protected isHtmlEnabled = false
+  protected alertType: 'success' | 'warning' | 'error' | 'info' | 'confirm' = 'confirm'
 
   /**
    * # 是否显示确认按钮
@@ -104,14 +96,6 @@ export class AirAlert {
   }
 
   /**
-   * # 允许使用不安全的HTML富文本
-   */
-  enableHtml(): this {
-    this.isHtmlEnabled = true
-    return this
-  }
-
-  /**
    * # 是否隐藏确认按钮
    */
   hideConfirm(): this {
@@ -161,7 +145,7 @@ export class AirAlert {
    * @param title [可选]消息标题
    */
   success(content?: string | ReactNode, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.SUCCESS
+    this.alertType = 'success'
     return this.alert(content, title)
   }
 
@@ -180,7 +164,7 @@ export class AirAlert {
    * @param title [可选]消息标题
    */
   warning(content?: string | ReactNode, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.WARNING
+    this.alertType = 'warning'
     return this.alert(content, title)
   }
 
@@ -199,17 +183,8 @@ export class AirAlert {
    * @param title [可选]消息标题
    */
   show(content?: string | ReactNode, title?: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      Modal.confirm({
-        type: 'confirm',
-        title,
-        content,
-        maskClosable: true,
-        centered: true,
-        onOk: () => resolve(),
-        onCancel: () => reject(),
-      })
-    })
+    this.alertType = 'confirm'
+    return this.alert(content, title)
   }
 
   /**
@@ -227,7 +202,7 @@ export class AirAlert {
    * @param title [可选]消息标题
    */
   error(content?: string | ReactNode, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.ERROR
+    this.alertType = 'error'
     return this.alert(content, title)
   }
 
@@ -246,7 +221,7 @@ export class AirAlert {
    * @param title [可选]消息标题
    */
   info(content?: string | ReactNode, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.INFO
+    this.alertType = 'info'
     return this.alert(content, title)
   }
 
@@ -266,11 +241,11 @@ export class AirAlert {
    */
   private alert(content?: string | ReactNode, title?: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      Modal[this.icon]({
-        title,
-        content,
-        maskClosable: true,
-        centered: true,
+      Modal[this.alertType]({
+        title,    // 标题
+        content,  //内容，支持ReactNode
+        icon: this.alertType === 'confirm' && null,
+        ...this.getConfig(),
         onOk: () => resolve(),
         onCancel: () => reject(),
       })
@@ -278,28 +253,20 @@ export class AirAlert {
   }
 
   /**
-   * # 获取配置
+   * 获取其他配置项
    */
-  protected getConfig(): ElMessageBoxOptions {
-    const customStyle: CSSProperties = {}
-    if (this.width) {
-      customStyle.width = this.width
-    }
-    if (this.height) {
-      customStyle.height = this.height
-    }
+
+  protected getConfig() {
     return {
-      showConfirmButton: this.isConfirmButtonShow,
-      confirmButtonText: this.confirmText,
-      cancelButtonText: this.cancelText,
-      type: this.icon,
-      draggable: true,
-      dangerouslyUseHTMLString: this.isHtmlEnabled,
-      customClass: this.isHtmlEnabled ? 'rich-text' : '',
-      customStyle,
-      showClose: this.isCloseButtonShow,
-      closeOnClickModal: this.isCloseByCover,
-      closeOnPressEscape: this.isCloseByEscape,
+      centered: true,  //居中显示
+      width: this.width,
+      height: this.height,
+      okText: this.confirmText,
+      cancelText: this.cancelText,
+      maskClosable: this.isCloseByCover,  //点击遮罩关闭
+      keyboard: this.isCloseByEscape,     //esc关闭
+      showClose: this.isCloseButtonShow,  // 展示右上角关闭按钮
     }
   }
+
 }

@@ -1,9 +1,7 @@
 import './index.scss'
 import { useState } from 'react'
 import { DesktopOutlined } from '@ant-design/icons'
-import { AppStore } from '@/store'
 import { observer } from 'mobx-react';
-
 interface PanelPropTypes {
     title?: string
     hideFull?: boolean
@@ -11,11 +9,9 @@ interface PanelPropTypes {
 }
 
 /**
- * 
  * @param title-标题
  * @param hideFull-是否隐藏全屏按钮
  */
-
 const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = false, ...props }) => {
 
     const [isFull, toggleFull] = useState(false)
@@ -30,7 +26,6 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
                 <div className="title">
                     <DesktopOutlined className='primaryIcon' />
                     <span className='tit_text'>{title}</span>
-                    {AppStore.accessToken}
                 </div>
                 {
                     !hideFull &&
@@ -42,6 +37,7 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
             <div className="panel_body">
                 {props.children}
             </div>
+
         </div>
     )
 }

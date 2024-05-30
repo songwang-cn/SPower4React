@@ -2,7 +2,6 @@
 import 'reflect-metadata'
 // 引入 ES6 垫片
 import 'es6-shim'
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
@@ -13,8 +12,6 @@ import '@/assets/css/theme.scss'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 import ThemeConfig from '@/config/theme.ts'
-import { AppStore } from './store/index.ts'
-
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -23,8 +20,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </ConfigProvider>
   </React.StrictMode>,
 )
-
-setTimeout(() => {
-  AppStore.updateAccessToken('7897897897987')
-  console.log('updateAccessToken')
-}, 5000)

@@ -1,6 +1,7 @@
 import { notification } from 'antd'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AppConfig } from '@/config/AppConfig'
+import { ReactNode } from 'react'
 
 /**
  * # 通知基类
@@ -15,7 +16,7 @@ export class AirNotification {
   /**
    * # 通知内容
    */
-  private message = ''
+  private message: string | ReactNode = ''
 
   /**
    * # 通知默认保留时长 单位 s
@@ -62,7 +63,7 @@ export class AirNotification {
    * @param message 消息
    * @returns 实例
    */
-  setMessage(message: string): this {
+  setMessage(message: string | ReactNode): this {
     this.message = message
     return this
   }
@@ -85,9 +86,9 @@ export class AirNotification {
    * @param title [可选] 标题
    * @returns 是否点击了通知
    */
-  async warning(message?: string, title?: string): Promise<boolean> {
+  async warning(message?: string | ReactNode, title?: string): Promise<boolean> {
     this.setTitleAndMessage(title, message)
-    return this.show(AirFeedbackIcon.WARNING)
+    return this.show(AirFeedbackType.WARNING)
   }
 
   /**
@@ -98,7 +99,7 @@ export class AirNotification {
    * @param title [可选] 标题
    * @returns 是否点击了通知
    */
-  static async warning(message?: string, title?: string): Promise<boolean> {
+  static async warning(message?: string | ReactNode, title?: string): Promise<boolean> {
     return this.create().warning(message, title)
   }
 
@@ -110,8 +111,8 @@ export class AirNotification {
    * @param title [可选] 标题
    * @returns 是否点击了通知
    */
-  async success(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.SUCCESS)
+  async success(message?: string | ReactNode, title?: string): Promise<boolean> {
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.SUCCESS)
   }
 
   /**
@@ -122,7 +123,7 @@ export class AirNotification {
    * @param title [可选] 标题
    * @returns 是否点击了通知
    */
-  static async success(message?: string, title?: string): Promise<boolean> {
+  static async success(message?: string | ReactNode, title?: string): Promise<boolean> {
     return this.create().success(message, title)
   }
 
@@ -135,7 +136,7 @@ export class AirNotification {
    * @returns 是否点击了通知
    */
   async info(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.INFO)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.INFO)
   }
 
   /**
@@ -159,7 +160,7 @@ export class AirNotification {
    * @returns 是否点击了通知
    */
   async error(message?: string, title?: string): Promise<boolean> {
-    return this.setTitleAndMessage(title, message).show(AirFeedbackIcon.ERROR)
+    return this.setTitleAndMessage(title, message).show(AirFeedbackType.ERROR)
   }
 
   /**
@@ -179,13 +180,13 @@ export class AirNotification {
    * @param title [可选]标题
    * @param message [可选]内容
    */
-  private setTitleAndMessage(title?: string, message?: string) {
+  private setTitleAndMessage(title?: string, message?: string | ReactNode) {
     if (title) {
       this.setTitle(title)
     }
     if (message) {
       this.setMessage(message)
-    }
+    } AirFeedbackType
     return this
   }
 
@@ -199,13 +200,15 @@ export class AirNotification {
    * @see error()
    * @see info()
    */
-  private async show(type: AirFeedbackIcon): Promise<boolean> {
+  private async show(type: AirFeedbackType): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       notification[type]({
         message: this.title,
         duration: this.duration,
         description: this.message,
         placement: this.offset,
+        onClose: () => resolve(false),
+        onClick: () => resolve(true)
       });
     })
   }

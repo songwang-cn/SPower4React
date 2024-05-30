@@ -34,9 +34,7 @@ function AdminRouterView() {
   return useRoutes(RouterHelper.initRoute(menuList))
 }
 
-export default function Admin() {
-
-
+const Admin = () => {
 
   return (
     <ABody menuList={menuList}>
@@ -44,4 +42,6 @@ export default function Admin() {
     </ABody>
   )
 }
+
+export default Admin
 

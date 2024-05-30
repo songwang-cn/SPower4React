@@ -1,6 +1,7 @@
-import { ElMessageBox } from 'element-plus'
-import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { Modal } from 'antd'
+import { AirFeedbackType } from '../enum/AirFeedbackType'
 import { AirAlert } from './AirAlert'
+import { ReactNode } from 'react'
 
 /**
  * #  确认弹窗类
@@ -56,7 +57,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 消息标题
    */
   success(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.SUCCESS
+    this.alertType = 'success'
     return this.show(content, title)
   }
 
@@ -75,7 +76,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 消息标题
    */
   warning(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.WARNING
+    this.alertType = AirFeedbackType.WARNING
     return this.show(content, title)
   }
 
@@ -94,7 +95,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 消息标题
    */
   error(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.ERROR
+    this.alertType = AirFeedbackType.ERROR
     return this.show(content, title)
   }
 
@@ -103,7 +104,7 @@ export class AirConfirm extends AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选] 消息标题
    */
-  static error(content?: string, title?:string): Promise<void> {
+  static error(content?: string, title?: string): Promise<void> {
     return this.create().error(content, title)
   }
 
@@ -113,7 +114,7 @@ export class AirConfirm extends AirAlert {
    * @param title [可选] 消息标题
    */
   info(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.INFO
+    this.alertType = AirFeedbackType.INFO
     return this.show(content, title)
   }
 
@@ -132,19 +133,16 @@ export class AirConfirm extends AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选] 消息标题
    */
-  show(content?: string, title?: string): Promise<void> {
+  show(content?: string | ReactNode, title?: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.confirm(
-        content || this.content,
-        title || this.title,
-        this.getConfig(),
-      )
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
+      Modal.confirm({
+        content: content || this.content,
+        title: title || this.title,
+        icon: null,
+        ...this.getConfig(),
+        onOk: () => resolve(),
+        onCancel: () => reject()
+      })
     })
   }
 
@@ -154,7 +152,7 @@ export class AirConfirm extends AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选] 消息标题
    */
-  static show(content?: string, title?:string): Promise<void> {
+  static show(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().show(content, title)
   }
 }

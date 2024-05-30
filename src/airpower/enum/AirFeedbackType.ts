@@ -3,7 +3,7 @@
  * # 图标类型
  * @author Hamm
  */
-export enum AirFeedbackIcon {
+export enum AirFeedbackType {
   /**
    * # 标准成功图标
    */
@@ -23,9 +23,4 @@ export enum AirFeedbackIcon {
    * # 标准错误图标
    */
   ERROR = 'error',
-
-  /**
-   * # 不显示任何图标
-   */
-  NONE = 'open'
 }

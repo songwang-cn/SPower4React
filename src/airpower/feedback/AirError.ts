@@ -1,4 +1,4 @@
-import { AppConfig } from '../AppConfig'
+import { AppConfig } from '@/config/AppConfig'
 import { AirHttpStatus } from '../enum/AirHttpStatus'
 import { AirNotification } from './AirNotification'
 

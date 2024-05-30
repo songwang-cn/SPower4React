@@ -18,6 +18,7 @@ class Store {
         this.accessToken = accessToken
     }
 
+
     updateCurrentUser(user: any) {
         this.user = user
     }
