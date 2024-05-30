@@ -1,11 +1,12 @@
 
 import './index.scss'
 import { routes } from '@/config/router'
-import AMenu from '@/airpower/component/Menu'
+import { AMenu } from '@/airpower/component'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { IRouter } from '@/airpower/interface/IRouter'
 import { AppConfig } from '@/config/AppConfig'
+import { AppStore } from '@/store'
 
 function getRouteNameByPath(path: string) {
     let routeName = ''
@@ -52,7 +53,13 @@ const Body: React.FC<{ menuList: IRouter[], children?: React.ReactNode }> = ({ m
                 <div className="header">
                     <div className="bread">
                         <div className={`expand airpower icon-caidanshouqi ${collapse && 'collapse'}`} onClick={() => changeCollapse(!collapse)} />
-                        <div className='routeName'>{getRouteNameByPath(currentRoutePath)}</div>
+                        <div className='routeName'>{getRouteNameByPath(currentRoutePath) || currentRoutePath}</div>
+                    </div>
+                    <div className="center">
+
+                    </div>
+                    <div className="user">
+                        {AppStore.user?.userName.slice(0, 1)}
                     </div>
                 </div>
                 <div className="content">
