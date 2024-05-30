@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { ElMessageBox, ElMessageBoxOptions } from 'antd'
-import { CSSProperties } from 'vue'
+import { Modal } from 'antd'
 import { AirFeedbackIcon } from '../enum/AirFeedbackIcon'
+import { ReactNode } from 'react'
+
 
 /**
  * # 消息弹窗类
@@ -159,7 +160,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  success(content?: string, title?: string): Promise<void> {
+  success(content?: string | ReactNode, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.SUCCESS
     return this.alert(content, title)
   }
@@ -169,7 +170,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  static success(content?: string, title?: string): Promise<void> {
+  static success(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().success(content, title)
   }
 
@@ -178,7 +179,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  warning(content?: string, title?: string): Promise<void> {
+  warning(content?: string | ReactNode, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.WARNING
     return this.alert(content, title)
   }
@@ -188,7 +189,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  static warning(content?: string, title?: string): Promise<void> {
+  static warning(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().warning(content, title)
   }
 
@@ -197,9 +198,18 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  show(content?: string, title?: string): Promise<void> {
-    this.icon = AirFeedbackIcon.NONE
-    return this.alert(content, title)
+  show(content?: string | ReactNode, title?: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      Modal.confirm({
+        type: 'confirm',
+        title,
+        content,
+        maskClosable: true,
+        centered: true,
+        onOk: () => resolve(),
+        onCancel: () => reject(),
+      })
+    })
   }
 
   /**
@@ -207,7 +217,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  static show(content?: string, title?: string): Promise<void> {
+  static show(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().show(content, title)
   }
 
@@ -216,7 +226,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  error(content?: string, title?: string): Promise<void> {
+  error(content?: string | ReactNode, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.ERROR
     return this.alert(content, title)
   }
@@ -226,7 +236,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  static error(content?: string, title?: string): Promise<void> {
+  static error(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().error(content, title)
   }
 
@@ -235,7 +245,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  info(content?: string, title?: string): Promise<void> {
+  info(content?: string | ReactNode, title?: string): Promise<void> {
     this.icon = AirFeedbackIcon.INFO
     return this.alert(content, title)
   }
@@ -245,7 +255,7 @@ export class AirAlert {
    * @param content [可选] 消息内容
    * @param title [可选]消息标题
    */
-  static info(content?: string, title?: string): Promise<void> {
+  static info(content?: string | ReactNode, title?: string): Promise<void> {
     return this.create().info(content, title)
   }
 
@@ -254,19 +264,16 @@ export class AirAlert {
    * @param content [可选]消息内容
    * @param title [可选]消息标题
    */
-  private alert(content?: string, title?: string): Promise<void> {
+  private alert(content?: string | ReactNode, title?: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      ElMessageBox.alert(
-        content || this.content,
-        title || this.title,
-        this.getConfig(),
-      )
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
+      Modal[this.icon]({
+        title,
+        content,
+        maskClosable: true,
+        centered: true,
+        onOk: () => resolve(),
+        onCancel: () => reject(),
+      })
     })
   }
 

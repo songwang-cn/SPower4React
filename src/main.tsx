@@ -20,9 +20,7 @@ const StoreContext = createContext(AppStore)
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ConfigProvider locale={zhCN} theme={ThemeConfig}>
-      <StoreContext.Provider value={AppStore}>
-        <App />
-      </StoreContext.Provider>
+      <App />
     </ConfigProvider>
   </React.StrictMode>,
 )

@@ -21,7 +21,13 @@ const menuList: IRouter[] = [
         component: '/device/list'
       }
     ]
-  }
+  },
+  {
+    name: '组件示例',
+    path: '/componentParty',
+    icon: 'icon-xiangqing',
+    component: '/componentParty/index'
+  },
 ]
 
 function AdminRouterView() {
@@ -29,6 +35,9 @@ function AdminRouterView() {
 }
 
 export default function Admin() {
+
+
+
   return (
     <ABody menuList={menuList}>
       <AdminRouterView />
