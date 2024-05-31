@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { Modal } from 'antd'
 import { ReactNode } from 'react'
+import { AppConfig } from '@/config/AppConfig'
 /**
  * # 消息弹窗类
- * @author Hamm
+ * @author SPower
  */
 export class AirAlert {
   /**
@@ -21,6 +22,7 @@ export class AirAlert {
    */
   protected confirmText = '确定'
 
+
   /**
    * # 取消按钮文字
    */
@@ -31,25 +33,11 @@ export class AirAlert {
    */
   protected alertType: 'success' | 'warning' | 'error' | 'info' | 'confirm' = 'confirm'
 
-  /**
-   * # 是否显示确认按钮
-   */
-  protected isConfirmButtonShow = true
-
-  /**
-   * # 是否显示右上角关闭按钮
-   */
-  protected isCloseButtonShow = true
-
-  /**
-   * # 是否esc可关闭
-   */
-  protected isCloseByEscape = false
 
   /**
    * # 是否遮罩层可关闭
    */
-  protected isCloseByCover = false
+  protected isCloseByCover = AppConfig.isCloseByCover
 
   /**
    * # 弹窗宽度
@@ -90,24 +78,17 @@ export class AirAlert {
    * # 设置确认按钮文字
    * @param confirmText 确认按钮文字
    */
-  setConfirmText(confirmText: string): this {
+  setOkText(confirmText: string): this {
     this.confirmText = confirmText
     return this
   }
 
   /**
-   * # 是否隐藏确认按钮
+   * # 设置确认按钮文字
+   * @param confirmText 确认按钮文字
    */
-  hideConfirm(): this {
-    this.isConfirmButtonShow = false
-    return this
-  }
-
-  /**
-   * # 是否隐藏关闭按钮
-   */
-  hideClose(): this {
-    this.isCloseButtonShow = false
+  setCancelText(cancelText: string): this {
+    this.cancelText = cancelText
     return this
   }
 
@@ -242,12 +223,11 @@ export class AirAlert {
   private alert(content?: string | ReactNode, title?: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       Modal[this.alertType]({
-        title,    // 标题
-        content,  //内容，支持ReactNode
-        icon: this.alertType === 'confirm' && null,
-        ...this.getConfig(),
+        title: title || this.title,    // 标题
+        content: content || this.content,  //内容，支持ReactNode
         onOk: () => resolve(),
         onCancel: () => reject(),
+        ...this.getConfig(),
       })
     })
   }
@@ -264,8 +244,7 @@ export class AirAlert {
       okText: this.confirmText,
       cancelText: this.cancelText,
       maskClosable: this.isCloseByCover,  //点击遮罩关闭
-      keyboard: this.isCloseByEscape,     //esc关闭
-      showClose: this.isCloseButtonShow,  // 展示右上角关闭按钮
+      keyboard: false,     //esc关闭
     }
   }
 

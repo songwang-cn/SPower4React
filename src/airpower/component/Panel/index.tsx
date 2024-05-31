@@ -2,10 +2,12 @@ import './index.scss'
 import { useState } from 'react'
 import { DesktopOutlined } from '@ant-design/icons'
 import { observer } from 'mobx-react';
+import { ReactNode } from 'react'
 interface PanelPropTypes {
     title?: string
     hideFull?: boolean
-    children?: React.ReactNode
+    children?: ReactNode
+    footerRight?: ReactNode
 }
 
 /**
@@ -37,7 +39,9 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
             <div className="panel_body">
                 {props.children}
             </div>
-
+            <div className="footerRight">
+                {props.footerRight}
+            </div>
         </div>
     )
 }

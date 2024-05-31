@@ -3,7 +3,7 @@ import { AirRequest } from '../dto/AirRequest'
 
 /**
  * # 导出的数据模型
- * @author Hamm
+ * @author SPower
  */
 export class AirExportModel<E extends AirEntity> {
   /**

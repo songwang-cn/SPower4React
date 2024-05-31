@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /**
  * # 菜单类型
- * @author Hamm
+ * @author SPower
  */
 export enum AirMenuType {
     /**

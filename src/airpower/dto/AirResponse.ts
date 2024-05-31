@@ -4,7 +4,7 @@ import { AirPageResponse } from './AirPageResponse'
 
 /**
  * # 响应泛型类
- * @author Hamm
+ * @author SPower
  */
 export class AirResponse<E extends AirEntity> extends AirPageResponse {
     @Expose() items: E[] = []

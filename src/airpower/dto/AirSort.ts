@@ -4,7 +4,7 @@ import { AirSortType } from '../enum/AirSortType'
 
 /**
  * # 排序对象
- * @author Hamm
+ * @author SPower
  */
 export class AirSort extends AirModel {
   constructor(columnName = 'updatedTime', sortType = AirSortType.DESC) {

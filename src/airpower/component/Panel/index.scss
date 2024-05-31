@@ -58,6 +58,14 @@
         flex: 1;
         padding: 20px;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footerRight {
+        padding: 0 20px 10px 20px;
+        display: flex;
+        justify-content: flex-end;
     }
 
 }

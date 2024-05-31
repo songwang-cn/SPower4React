@@ -14,9 +14,7 @@ import zhCN from 'antd/locale/zh_CN'
 import ThemeConfig from '@/config/theme.ts'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ConfigProvider locale={zhCN} theme={ThemeConfig}>
-      <App />
-    </ConfigProvider>
-  </React.StrictMode>,
+  <ConfigProvider locale={zhCN} theme={ThemeConfig}>
+    <App />
+  </ConfigProvider>
 )

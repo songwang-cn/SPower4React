@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 
 /**
  * # 通知基类
- * @author Hamm
+ * @author SPower
  */
 export class AirNotification {
   /**

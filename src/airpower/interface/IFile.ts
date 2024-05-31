@@ -2,7 +2,7 @@ import { AirEntity } from '../dto/AirEntity'
 
 /**
  * # 文件标准格式接口
- * @author Hamm
+ * @author SPower
  */
 export interface IFile extends AirEntity {
   /**

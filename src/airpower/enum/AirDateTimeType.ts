@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /**
  * # AInput使用的时间格式
- * @author Hamm
+ * @author SPower
  */
 export enum AirDateTimeType {
   /**

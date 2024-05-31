@@ -3,7 +3,7 @@ import { AirColor } from '../enum/AirColor'
 
 /**
  * # 标准记录集实现类
- * @author Hamm
+ * @author SPower
  */
 export class AirRecord implements IRecord {
   key!: number | string | boolean

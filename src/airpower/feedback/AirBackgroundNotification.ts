@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * # 弹出后台通知(浏览器级别)
- * @author Hamm
+ * @author SPower
  */
 export class AirBackgroundNotification {
   private title = '你收到了一条通知'

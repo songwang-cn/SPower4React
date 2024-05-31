@@ -3,7 +3,7 @@ import { AirEntity } from '../dto/AirEntity'
 
 /**
  * # 应用标准结构接口
- * @author Hamm
+ * @author SPower
  */
 export interface IApp extends AirEntity {
   /**

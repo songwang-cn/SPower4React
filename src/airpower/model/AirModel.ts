@@ -3,10 +3,10 @@ import { getTableFieldList, getTableFieldConfig } from "../decorator/TableField"
 import { getFieldName } from "../decorator/FieldName";
 
 /**
- * 模型基类 AModel 基类
+ * 模型基类 AirModel 基类
  * author: songwang
  */
-export class AModel {
+export class AirModel {
     static getTableFieldList(): string[] {
         return new this().getTableFieldList()
     }

@@ -1,3 +1,9 @@
+.air-table {
+    height: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
 .actionHeadet {
     display: flex;
     justify-content: space-between;

@@ -10,7 +10,7 @@ import { AirHttpMethod } from '../enum/AirHttpMethod'
 
 /**
  * # 网络请求类
- * @author Hamm
+ * @author SPower
  */
 export class AirHttp {
   /**

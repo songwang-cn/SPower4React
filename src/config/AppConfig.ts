@@ -10,7 +10,7 @@ import defaultLogo from '@/assets/img/logo.png'
 
 /**
  * # 😄APP全局配置
- * @author Hamm
+ * @author SPower
  */
 export class AppConfig {
     /**
@@ -62,6 +62,12 @@ export class AppConfig {
      * # 单点登录启用状态
      */
     private static ssoStatus = false
+
+
+    /**
+     * 弹出形式的组件是否支持点击背景关闭
+     */
+    static isCloseByCover = true
 
     /**
      * # 单点登录是否启用

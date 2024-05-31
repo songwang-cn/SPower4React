@@ -5,7 +5,7 @@ import { IRecord } from './IRecord'
 
 /**
  * # 表格的字段配置接口
- * @author Hamm
+ * @author SPower
  */
 export interface ITableFieldConfig extends IFieldConfig {
   /**

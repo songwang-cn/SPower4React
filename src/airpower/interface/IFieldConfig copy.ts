@@ -1,6 +1,6 @@
 /**
  * # 字段配置接口
- * @author Hamm
+ * @author SPower
  */
 export interface IFieldConfig {
   /**

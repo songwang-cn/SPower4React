@@ -3,7 +3,7 @@ import { AirPage } from './AirPage'
 
 /**
  * # 响应分页类
- * @author Hamm
+ * @author SPower
  */
 export class AirPageResponse extends AirPage {
   /**

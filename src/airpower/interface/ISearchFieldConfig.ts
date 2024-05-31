@@ -4,7 +4,7 @@ import { IRecord } from '../interface/IRecord'
 
 /**
  * # 表格的字段配置接口
- * @author Hamm
+ * @author SPower
  */
 export interface ISearchFieldConfig extends IFieldConfig {
   /**

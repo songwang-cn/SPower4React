@@ -4,7 +4,7 @@ import { AirEntity } from '../dto/AirEntity'
 
 /**
  * # 租户信息
- * @author Hamm
+ * @author SPower
  */
 export class AirTenantEntity extends AirEntity {
   /**

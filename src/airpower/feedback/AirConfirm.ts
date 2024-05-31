@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 
 /**
  * #  确认弹窗类
- * @author Hamm
+ * @author SPower
  */
 export class AirConfirm extends AirAlert {
   /**

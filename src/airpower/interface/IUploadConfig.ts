@@ -3,7 +3,7 @@ import { IFile } from './IFile'
 
 /**
  * # 上传配置项
- * @author Hamm
+ * @author SPower
  */
 export interface IUploadConfig {
 

@@ -8,7 +8,7 @@ import { AirUserBind } from './AirUserBind'
 
 /**
  * # 内置用户实体类
- * @author Hamm
+ * @author SPower
  */
 export class AirUserEntity extends AirEntity implements IUser {
   @FieldName('登录账号')
@@ -79,5 +79,5 @@ export class AirUserEntity extends AirEntity implements IUser {
    * # 用户绑定信息
    */
   @Type(() => AirUserBind)
-  @Expose({ name: 'userBindInfo' }) bindInfo!:AirUserBind
+  @Expose({ name: 'userBindInfo' }) bindInfo!: AirUserBind
 }

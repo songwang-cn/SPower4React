@@ -2,7 +2,7 @@ import { AirColor } from '../enum/AirColor'
 
 /**
  * # 标准记录集 用于全局固定枚举常量的声明
- * @author Hamm
+ * @author SPower
  */
 export interface IRecord {
     /**

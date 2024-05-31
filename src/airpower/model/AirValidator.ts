@@ -7,7 +7,7 @@ import { AirValidatorHelper } from '../helper/AirValidatorHelper'
 
 /**
  * # 表单验证配置
- * @author Hamm
+ * @author SPower
  * */
 export class AirValidator {
   /**

@@ -12,6 +12,7 @@ import { ClassConstructor } from 'class-transformer'
 interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Record<string, any>, index: number) => JSX.Element | any> {
     dataList: AirEntity[]
     entity: ClassConstructor<AirEntity>
+    loading?: boolean
     ctrlWidth?: number
     align?: AlignType
     hideIndex?: boolean
@@ -52,7 +53,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
 
     function createFieldNode(fieldKey: string, text: any) {
         if (!text) {
-            return AppConfig.fieldEmptyHolder
+            return AppConfig.defaultTableEmptyValue
         }
         const fieldConfig = entityClass.getTableFieldConfig(fieldKey)
         const isCopyDom = () => fieldConfig?.isCopyField ?
@@ -87,7 +88,11 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
 
     return (
         <ANTD.Table
-            rowKey="id"
+            loading={props.loading}
+            className='air-table'
+            sticky
+            pagination={false}
+            tableLayout='auto'
             expandable={{
                 childrenColumnName: 'sons',
                 defaultExpandAllRows: true,
@@ -104,7 +109,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
             size='small'
         >
             {
-                !props.hideIndex && <ANTD.Table.Column align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
+                !props.hideIndex && <ANTD.Table.Column fixed={'left'} align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
             }
             {
                 allFieldList.filter((key: string) => selectedFieldList.includes(key)).map((fieldKey: string) =>

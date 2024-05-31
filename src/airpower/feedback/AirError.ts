@@ -4,7 +4,7 @@ import { AirNotification } from './AirNotification'
 
 /**
  * # 错误反馈
- * @anthor Hamm
+ * @anthor SPower
  */
 export class AirError {
   /**

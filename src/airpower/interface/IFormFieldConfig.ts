@@ -7,7 +7,7 @@ import { IRecord } from './IRecord'
 
 /**
  * # 表单的字段配置接口
- * @author Hamm
+ * @author SPower
  */
 export interface IFormFieldConfig extends IFieldConfig {
   /**
@@ -92,14 +92,12 @@ export interface IFormFieldConfig extends IFieldConfig {
   /**
    * # 前置图标名称
    *
-   * 只支持 [Element Plus内置的图标](https://url.hamm.cn/5yc2d)
    */
   prefixIcon?: string;
 
   /**
    * # 后置图标名称
    *
-   * 只支持 [Element Plus内置的图标](https://url.hamm.cn/5yc2d)
    */
   suffixIcon?: string;
 

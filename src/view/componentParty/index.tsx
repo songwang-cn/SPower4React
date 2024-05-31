@@ -1,15 +1,22 @@
 import { AButton } from "@/airpower/component"
 import { AirAlert } from "@/airpower/feedback/AirAlert"
 import { AirConfirm } from "@/airpower/feedback/AirConfirm"
-import { AppStore } from "@/store"
 
 const componentParty = () => {
 
+    async function _alert() {
+        await new AirAlert()
+            .setOkText('真的吗')
+            .setCancelText('再见')
+            .setContent('really')
+            .show()
+        alert(1)
+    }
+
     return (
         <div>
-            <AButton onClick={() => AirAlert.warning('123', '123')}>AirAlert</AButton>
-            <AButton onClick={() => AirConfirm.show('123', '123')}>AirConfirm</AButton>
-            <AButton onClick={() => AppStore.updateLoading()}>AirLoading</AButton>
+            <AButton onClick={_alert}>AirAlert</AButton>
+            <AButton onClick={() => new AirConfirm().show()}>AirConfirm</AButton>
         </div >
     )
 }

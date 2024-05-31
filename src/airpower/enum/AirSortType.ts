@@ -2,7 +2,7 @@
 
 /**
  * # 排序方式枚举
- * @author Hamm
+ * @author SPower
  */
 export enum AirSortType {
   /**

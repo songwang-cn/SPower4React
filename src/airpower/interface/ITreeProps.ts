@@ -1,6 +1,6 @@
 /**
  * # 树配置项
- * @author Hamm
+ * @author SPower
  */
 export interface ITreeProps {
   /**

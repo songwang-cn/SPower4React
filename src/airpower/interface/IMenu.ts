@@ -2,7 +2,7 @@ import { ITree } from './ITree'
 
 /**
  * # 标准菜单接口
- * @author Hamm
+ * @author SPower
  */
 export interface IMenu extends ITree {
     /**

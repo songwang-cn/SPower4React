@@ -6,7 +6,7 @@ import { AirMenuType } from '../enum/AirMenuType'
 
 /**
  * # 内置菜单实体
- * @author Hamm
+ * @author SPower
  */
 // eslint-disable-next-line no-use-before-define
 export class AirMenuEntity extends AirEntity implements IMenu {

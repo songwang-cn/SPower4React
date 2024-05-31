@@ -2,7 +2,7 @@ import { ITreeProps } from './ITreeProps'
 
 /**
  * # 标准树控件配置项
- * @author Hamm
+ * @author SPower
  */
 export interface INormalTreeProps extends ITreeProps {
   /**

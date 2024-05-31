@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer";
-import { AModel } from "../model/AModel";
+import { AirModel } from "../model/AirModel";
 
-export class AirEntity extends AModel {
+export class AirEntity extends AirModel {
     constructor(id?: number) {
         super()
         if (id) {

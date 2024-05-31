@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 /**
  * # 标准时间格式化
- * @author Hamm
+ * @author SPower
  */
 export enum AirDateTimeFormatter {
   /**

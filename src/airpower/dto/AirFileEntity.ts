@@ -4,7 +4,7 @@ import { AirEntity } from './AirEntity'
 
 /**
  * # 文件实体类
- * @author Hamm
+ * @author SPower
  */
 export class AirFileEntity extends AirEntity implements IFile {
   @Expose() url!: string

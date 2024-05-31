@@ -6,7 +6,7 @@ import { AirRecord } from './AirRecord'
 
 /**
  * # 字典数组
- * @author Hamm
+ * @author SPower
  */
 export class AirRecordArray<R extends IRecord> extends Array<R> {
   /**

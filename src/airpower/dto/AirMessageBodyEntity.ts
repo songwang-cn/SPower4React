@@ -3,7 +3,7 @@ import { AirEntity } from './AirEntity'
 
 /**
  * # 消息体
- * @author Hamm
+ * @author SPower
  */
 export class AirMessageBodyEntity extends AirEntity {
     /**

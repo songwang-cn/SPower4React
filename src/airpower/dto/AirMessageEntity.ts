@@ -5,7 +5,7 @@ import { AirTenantAppEntity } from './AirTenantAppEntity'
 
 /**
  * # 消息记录实体
- * @author Hamm
+ * @author SPower
  */
 export class AirMessageEntity extends AirEntity {
     @Expose() isRead!: boolean

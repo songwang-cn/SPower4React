@@ -27,10 +27,17 @@ const Menu: React.FC<{ menuList: IRouter[], collapse?: boolean }> = ({ menuList,
 const MenuItem: React.FC<{ menulist: IRouter[] }> = ({ menulist }) => {
     return (
         menulist.map(route => route.children && route.children.length ?
-            <ANTD.Menu.SubMenu eventKey={route.name} title={route.name} icon={<i className={'airpower ' + route.icon} />}>
+            <ANTD.Menu.SubMenu
+                eventKey={route.name}
+                title={route.name}
+                icon={<i className={'airpower ' + route.icon} />}
+            >
                 <MenuItem menulist={route.children} />
             </ANTD.Menu.SubMenu> :
-            <ANTD.Menu.Item eventKey={route.path} icon={<i className={'airpower ' + route.icon} />}>
+            <ANTD.Menu.Item
+                eventKey={route.path}
+                icon={<i className={'airpower ' + route.icon} />}
+            >
                 {route.name}
             </ANTD.Menu.Item>)
     )

@@ -1,10 +1,15 @@
 import { DialogHelper } from "@/airpower/helper/DialogHelper"
-import { APanel, ATable, AButton } from "@/airpower/component"
+import { APanel, ATable, AButton, APage } from "@/airpower/component"
 import Detail from "./detail"
 import { DeviceEntity } from "@/entity/DeviceEntity"
 import { UserEntity } from "@/entity/UserEntity"
 import { RoleEntity } from "@/entity/RoleEntity"
 import { AirNotification } from "@/airpower/feedback/AirNotification"
+import { AirHttp } from "@/airpower/model/AirHttp"
+import { AirRequest } from "@/airpower/dto/AirRequest"
+import { useState, useRef, useEffect } from "react"
+import { AirResponse } from "@/airpower/dto/AirResponse"
+import { AirPage } from "@/airpower/dto/AirPage"
 
 
 const List = () => {
@@ -43,20 +48,41 @@ const List = () => {
         })
     ]
 
+    const [request, setRequest] = useState(new AirRequest<DeviceEntity>())
 
+    const [response, setResponse] = useState(new AirResponse())
+
+    const [loading, setLoading] = useState(false)
+
+    async function getPage() {
+        setLoading(true)
+        setResponse(await new AirHttp('baDevice/page').post(request))
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getPage()
+    }, [request])
+
+    function onPageDataChange(page: AirPage) {
+        setRequest(request.setPage(page))
+        getPage()
+    }
 
     return (
-        <APanel title="设备列表">
+        <APanel
+            title="设备列表"
+            footerRight={<APage pageData={response} onChange={onPageDataChange} />}
+        >
             <ATable
-                hideIndex
+                loading={loading}
                 hideSelect
                 entity={DeviceEntity}
-                dataList={dataList}
+                dataList={response.items}
                 ctrlWidth={400}
                 childrenColumnName="sons"
                 beforeCtrl={(record, index) => <>前插槽</>}
                 endCtrl={(record, index) => <>后插槽</>}
-                // customCtrl={(record, index) => <>自定义操作列</>}
                 onDetail={onDetail}
                 onEdit={onEdit}
                 onDelete={onDelete}

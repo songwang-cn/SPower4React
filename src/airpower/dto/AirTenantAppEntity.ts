@@ -5,7 +5,7 @@ import { AirMenuEntity } from './AirMenuEntity'
 
 /**
  * # 租户的应用信息
- * @author Hamm
+ * @author SPower
  */
 export class AirTenantAppEntity extends AirEntity implements IApp {
     /**

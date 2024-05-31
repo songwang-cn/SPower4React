@@ -7,7 +7,7 @@ import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
 
 /**
  * # 请求泛型类
- * @author Hamm
+ * @author SPower
  */
 export class AirRequest<E extends AirEntity> extends AirModel {
   @Expose() queryParams!: E
@@ -35,5 +35,10 @@ export class AirRequest<E extends AirEntity> extends AirModel {
     if (queryClass) {
       this.queryParams = AirClassTransformerHelper.parse({}, queryClass)
     }
+  }
+
+  setPage(page: AirPage) {
+    this.page = page
+    return this
   }
 }
