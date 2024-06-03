@@ -3,7 +3,6 @@ import './index.scss'
 import { routes } from '@/config/router'
 import { AMenu } from '@/airpower/component'
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { IRouter } from '@/airpower/interface/IRouter'
 import { AppConfig } from '@/config/AppConfig'
 import { AppStore } from '@/store'
@@ -27,9 +26,8 @@ function getRouteNameByPath(path: string) {
 
 const Body: React.FC<{ menuList: IRouter[], children?: React.ReactNode }> = ({ menuList, children }) => {
 
-    const location = useLocation();
 
-    const currentRoutePath = location.pathname;
+    const currentRoutePath = AppConfig.location.pathname;
 
     const [collapse, changeCollapse] = useState(false)
 

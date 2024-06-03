@@ -14,7 +14,7 @@ export class AirPage extends AirModel {
   /**
    * # 默认分页数量 默认20
    */
-  @Expose() currentPageSize = 2
+  @Expose() currentPageSize = 20
 
 
   setCurrentPage(currentPage: number) {

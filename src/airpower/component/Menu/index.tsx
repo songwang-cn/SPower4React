@@ -1,13 +1,11 @@
 import * as ANTD from 'antd'
 import { IRouter } from '@/airpower/interface/IRouter'
-import { useNavigate } from 'react-router-dom'
+import { AppConfig } from '@/config/AppConfig'
 
 const Menu: React.FC<{ menuList: IRouter[], collapse?: boolean }> = ({ menuList, collapse = false }) => {
-    const navigator = useNavigate()
 
     function handleClick(e: any) {
-        console.log('click ', e)
-        navigator(e.key)
+        AppConfig.navigate(e.key)
     }
 
     return (
@@ -15,8 +13,8 @@ const Menu: React.FC<{ menuList: IRouter[], collapse?: boolean }> = ({ menuList,
             mode='inline'
             theme='dark'
             onClick={handleClick}
-            defaultSelectedKeys={['/']}
-            defaultOpenKeys={['/']}
+            defaultSelectedKeys={[AppConfig.location?.pathname || '/']}
+            defaultOpenKeys={[AppConfig.location?.pathname || '/']}
             inlineCollapsed={collapse}
         >
             <MenuItem menulist={menuList} />

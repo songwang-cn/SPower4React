@@ -1,6 +1,7 @@
 import { AButton } from "@/airpower/component"
 import { AirAlert } from "@/airpower/feedback/AirAlert"
 import { AirConfirm } from "@/airpower/feedback/AirConfirm"
+import { AppConfig } from "@/config/AppConfig"
 
 const componentParty = () => {
 
@@ -17,6 +18,7 @@ const componentParty = () => {
         <div>
             <AButton onClick={_alert}>AirAlert</AButton>
             <AButton onClick={() => new AirConfirm().show()}>AirConfirm</AButton>
+            <AButton onClick={() => AppConfig.navigate('/login')}>login</AButton>
         </div >
     )
 }

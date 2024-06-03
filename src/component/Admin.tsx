@@ -1,7 +1,9 @@
 import { ABody } from '@/airpower/component/index'
 import { RouterHelper } from '@/airpower/helper/RouterHelper'
 import { IRouter } from '@/airpower/interface/IRouter'
-import { useRoutes } from 'react-router-dom'
+import { AppConfig } from '@/config/AppConfig'
+import { useRoutes, useNavigate, useLocation } from 'react-router-dom'
+
 
 const menuList: IRouter[] = [
   {
@@ -34,7 +36,15 @@ function AdminRouterView() {
   return useRoutes(RouterHelper.initRoute(menuList))
 }
 
+
 const Admin = () => {
+
+  /**
+   * 将 react 路由跳转钩子方法 useNavigate() 赋值给全局配置 AppConfig.navigate
+   */
+  AppConfig.navigate = useNavigate()
+
+  AppConfig.location = useLocation()
 
   return (
     <ABody menuList={menuList}>

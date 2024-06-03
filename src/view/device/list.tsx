@@ -1,15 +1,13 @@
 import { DialogHelper } from "@/airpower/helper/DialogHelper"
 import { APanel, ATable, AButton, APage } from "@/airpower/component"
-import Detail from "./detail"
 import { DeviceEntity } from "@/entity/DeviceEntity"
-import { UserEntity } from "@/entity/UserEntity"
-import { RoleEntity } from "@/entity/RoleEntity"
 import { AirNotification } from "@/airpower/feedback/AirNotification"
-import { AirHttp } from "@/airpower/model/AirHttp"
 import { AirRequest } from "@/airpower/dto/AirRequest"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { AirResponse } from "@/airpower/dto/AirResponse"
 import { AirPage } from "@/airpower/dto/AirPage"
+import { DeviceService } from "@/service/DeviceService"
+import Detail from "./detail"
 
 
 const List = () => {
@@ -26,38 +24,15 @@ const List = () => {
         AirNotification.warning('深处')
     }
 
-    const dataList = [
-        new DeviceEntity({
-            id: 1,
-            name: '设备',
-            code: 'code1338',
-            type: '生产设备',
-            status: ['nice', 'developer'],
-            responseUser: [
-                new UserEntity({
-                    id: 1,
-                    userName: '张三',
-                    phoneNumber: '13333333333',
-                    roleInfo: new RoleEntity({
-                        id: 1,
-                        roleName: '管理员',
-                        roleCode: 'admin'
-                    })
-                })
-            ],
-        })
-    ]
-
     const [request, setRequest] = useState(new AirRequest<DeviceEntity>())
 
     const [response, setResponse] = useState(new AirResponse())
 
-    const [loading, setLoading] = useState(false)
+    const loading = useRef(false)
 
     async function getPage() {
-        setLoading(true)
-        setResponse(await new AirHttp('baDevice/page').post(request))
-        setLoading(false)
+        const res = await new DeviceService(loading).getPage(request)
+        setResponse(res)
     }
 
     useEffect(() => {

@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { DesktopOutlined } from '@ant-design/icons'
 import { observer } from 'mobx-react';
 import { ReactNode } from 'react'
+import { AppConfig } from '@/config/AppConfig';
+import { useMatch } from 'react-router-dom';
 interface PanelPropTypes {
     title?: string
     hideFull?: boolean
@@ -22,6 +24,8 @@ const Panel: React.FC<PanelPropTypes> = ({ title = '面板标题', hideFull = fa
         toggleFull(!isFull)
     }
 
+    console.log(AppConfig.location)
+    console.log(useMatch(AppConfig.location.pathname))
     return (
         <div className={isFull ? 'panel full' : 'panel'}>
             <div className="head">

@@ -160,7 +160,9 @@ export class AirHttp {
      * 如传入了自定义的loading, 则标记loading
      */
     if (this.loading) {
-      this.loading.value = true
+      this.loading = {
+        current: true,
+      }
     }
     switch (this.axiosRequestConfig.method) {
       case AirHttpMethod.POST:
@@ -181,7 +183,9 @@ export class AirHttp {
     return new Promise((data, error) => {
       this.axiosResponse.then((res) => {
         if (this.loading) {
-          this.loading.value = false
+          this.loading = {
+            current: false,
+          }
         }
         switch (res.data[AppConfig.defaultHttpGlobalCodeKey]) {
           case AppConfig.defaultHttpSuccessCode:
@@ -190,14 +194,7 @@ export class AirHttp {
             break
           case AppConfig.defaultHttpUnauthorizedCode:
             // 需要登录
-            if (AppConfig.router) {
-              AppConfig.redirectToLogin()
-            } else {
-              new AirNotification()
-                .setTitle('请先登录')
-                .setMessage('请为@/airpower/app的AppConfig注入当前项目的路由')
-                .error()
-            }
+            AppConfig.redirectToLogin()
             break
           default:
             // 其他业务错误
@@ -212,7 +209,9 @@ export class AirHttp {
       }).catch((err) => {
         // 其他错误
         if (this.loading) {
-          this.loading.value = false
+          this.loading = {
+            current: false,
+          }
         }
         if (!this.flagIgnoreError) {
           new AirNotification()

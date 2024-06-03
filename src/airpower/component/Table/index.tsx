@@ -4,15 +4,15 @@ import { AButton } from '@/airpower/component'
 import { ITableCustomRenderProps } from '@/interface/ITableCustomRenderProps'
 import { SettingOutlined, CaretRightOutlined } from '@ant-design/icons'
 import { AppConfig } from '@/config/AppConfig'
-import { useState } from 'react'
 import { AirEntity } from '@/airpower/dto/AirEntity'
 import { AlignType } from 'rc-table/lib/interface'
 import { ClassConstructor } from 'class-transformer'
+import { Ref, useEffect, useState, createRef } from 'react'
 
 interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Record<string, any>, index: number) => JSX.Element | any> {
     dataList: AirEntity[]
     entity: ClassConstructor<AirEntity>
-    loading?: boolean
+    loading?: Ref<boolean>
     ctrlWidth?: number
     align?: AlignType
     hideIndex?: boolean
@@ -86,9 +86,17 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
         )
     }
 
+    const [loading, setLoading] = useState<boolean>(false)
+
+
+    useEffect(() => {
+        console.log('useEffect--props', props.loading)
+    }, [props.loading])
+
+
     return (
         <ANTD.Table
-            loading={props.loading}
+            loading={loading}
             className='air-table'
             sticky
             pagination={false}

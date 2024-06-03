@@ -1,6 +1,7 @@
 import { AirTableFieldConfig } from "../config/AirTableFieldConfig";
 import { getTableFieldList, getTableFieldConfig } from "../decorator/TableField";
 import { getFieldName } from "../decorator/FieldName";
+import { instanceToPlain } from "class-transformer";
 
 /**
  * 模型基类 AirModel 基类
@@ -45,6 +46,33 @@ export class AirModel {
      */
     copy(): this {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return this
+    }
+
+    /**
+     * # 将当前实例转换为 JSON 对象
+     */
+    toJson(): Record<string, any> {
+        return instanceToPlain(this)
+    }
+
+    toJsonString(): string {
+        return JSON.stringify(this.toJson())
+    }
+
+
+    /**
+     * # 移除指定字段
+     * @param fields 字段列表
+     */
+    exclude(...fields: string[]): this {
+        const fieldList = Object.keys(this)
+        for (let field of fieldList) {
+            if (fields.includes(field)) {
+                delete (this as any)[field]
+                // (this.as any)[field] = undefined
+            }
+        }
         return this
     }
 

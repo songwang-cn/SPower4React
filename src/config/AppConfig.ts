@@ -7,6 +7,7 @@ import type { NotificationArgsProps } from 'antd';
 type NotificationPlacement = NotificationArgsProps['placement'];
 
 import defaultLogo from '@/assets/img/logo.png'
+import { NavigateFunction } from 'react-router-dom';
 
 /**
  * # 😄APP全局配置
@@ -89,9 +90,11 @@ export class AppConfig {
     }
 
     /**
-     * # Vue 路由
+     * # React 路由跳转
      */
-    static router: any
+    static navigate: NavigateFunction
+
+    static location: any
 
     /**
      * # 公共服务访问地址 💡 环境变量请包含协议头
@@ -353,7 +356,14 @@ export class AppConfig {
      */
     static redirectToLogin() {
         // eslint-disable-next-line no-restricted-globals
-        if (this.router.currentRoute.value.path !== this.loginPath) { location.replace(this.loginPath) }
+        if (this.location.pathname !== this.loginPath) {
+            /**
+             * 路由替换到 login 页面
+             */
+            this.navigate(this.loginPath, {
+                replace: true
+            })
+        }
         this.removeAccessToken()
     }
 
