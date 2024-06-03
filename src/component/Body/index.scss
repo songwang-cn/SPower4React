@@ -9,10 +9,12 @@
         flex-direction: column;
         background-color: #001529;
         width: 250px;
+        min-width: 250px;
         transition: all var(--transition-duration) ease-in-out;
 
         &.collapse {
             width: 80px;
+            min-width: 80px;
         }
 
         .logo {
@@ -104,6 +106,8 @@
         }
 
         .content {
+            min-height: 0px;
+            min-width: 0px;
             flex: 1;
             padding: 12px;
             background: #f1f1f1;

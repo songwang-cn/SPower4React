@@ -10,6 +10,7 @@ import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
  * @author SPower
  */
 export class AirRequest<E extends AirEntity> extends AirModel {
+
   @Expose() queryParams!: E
 
   /**
@@ -39,6 +40,11 @@ export class AirRequest<E extends AirEntity> extends AirModel {
 
   setPage(page: AirPage) {
     this.page = page
-    return this
+    return Object.assign(new AirRequest(), this)
+  }
+
+  setQueryParams(queryParams: E): AirRequest<E> {
+    this.queryParams = queryParams
+    return Object.assign(new AirRequest(), this)
   }
 }

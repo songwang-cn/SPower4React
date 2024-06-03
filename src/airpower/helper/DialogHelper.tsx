@@ -12,7 +12,7 @@ export class DialogHelper {
     /**
      * @param component 需要渲染的弹窗组件 Dialog
      */
-    async build(component: React.FC, param: any): Promise<void> {
+    async build(component: React.FC | undefined, param: any): Promise<void> {
 
         const dom = document.createElement('div')
 
@@ -48,7 +48,7 @@ export class DialogHelper {
     /**
     * @param component 需要渲染的弹窗组件 Dialog
     */
-    static async show(component: React.FC, param?: any) {
+    static async show(component: React.FC | undefined, param?: any) {
         return new this().build(component, param)
     }
 }

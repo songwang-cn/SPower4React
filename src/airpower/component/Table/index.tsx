@@ -7,12 +7,13 @@ import { AppConfig } from '@/config/AppConfig'
 import { AirEntity } from '@/airpower/dto/AirEntity'
 import { AlignType } from 'rc-table/lib/interface'
 import { ClassConstructor } from 'class-transformer'
-import { Ref, useEffect, useState, createRef } from 'react'
+import { Ref, useEffect, useState, useMemo } from 'react'
+import { AirConfirm } from '@/airpower/feedback/AirConfirm'
 
 interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Record<string, any>, index: number) => JSX.Element | any> {
     dataList: AirEntity[]
     entity: ClassConstructor<AirEntity>
-    loading?: Ref<boolean>
+    loading?: boolean
     ctrlWidth?: number
     align?: AlignType
     hideIndex?: boolean
@@ -86,7 +87,6 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
         )
     }
 
-    const [loading, setLoading] = useState<boolean>(false)
 
 
     useEffect(() => {
@@ -96,13 +96,13 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
 
     return (
         <ANTD.Table
-            loading={loading}
+            loading={props.loading}
             className='air-table'
-            sticky
             pagination={false}
+            sticky
             tableLayout='auto'
             expandable={{
-                childrenColumnName: 'sons',
+                childrenColumnName,
                 defaultExpandAllRows: true,
                 expandIcon: ({ expanded, onExpand, record }) =>
                     ((record as any)[childrenColumnName]?.length ? <CaretRightOutlined className={`expandIcon ${expanded ? 'expanded' : ''}`} onClick={e => onExpand(record, e)} /> : '')
@@ -117,7 +117,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
             size='small'
         >
             {
-                !props.hideIndex && <ANTD.Table.Column fixed={'left'} align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
+                !props.hideIndex && <ANTD.Table.Column align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
             }
             {
                 allFieldList.filter((key: string) => selectedFieldList.includes(key)).map((fieldKey: string) =>
@@ -147,7 +147,6 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
                 )
             }
             <ANTD.Table.Column
-                fixed={'right'}
                 width={ctrlWidth}
                 title={
                     <div className='actionHeadet'>
@@ -174,9 +173,32 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 20
                             props.customCtrl ? props.customCtrl(record, index) :
                                 <>
                                     {props.beforeCtrl && props.beforeCtrl(record, index)}
-                                    <AButton iconType='DETAIL' iconButton tooltip='详情' onClick={() => props.onDetail && props.onDetail(record, index)}>详情</AButton>
-                                    <AButton iconType='EDIT' iconButton tooltip='编辑' onClick={() => props.onEdit && props.onEdit(record, index)}>编辑</AButton>
-                                    <AButton iconType='DELETE' iconButton tooltip='删除' danger onClick={() => props.onDelete && props.onDelete(record, index)}>删除</AButton>
+                                    <AButton
+                                        iconType='DETAIL'
+                                        iconButton tooltip='详情'
+                                        onClick={() => props.onDetail!(record, index)}
+                                    >
+                                        详情
+                                    </AButton>
+                                    <AButton
+                                        iconType='EDIT'
+                                        iconButton
+                                        tooltip='编辑'
+                                        onClick={() => props.onEdit!(record, index)}
+                                    >
+                                        编辑
+                                    </AButton>
+                                    <AButton
+                                        iconType='DELETE'
+                                        iconButton
+                                        tooltip='删除'
+                                        danger
+                                        onClick={async () => {
+                                            await AirConfirm.warning('确定删除这条数据吗?')
+                                            props.onDelete!(record, index)
+                                        }}>
+                                        删除
+                                    </AButton>
                                     {props.endCtrl && props.endCtrl(record, index)}
                                 </>
                         }
