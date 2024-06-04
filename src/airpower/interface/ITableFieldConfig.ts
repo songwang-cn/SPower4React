@@ -6,6 +6,8 @@ export interface ITableFieldConfig extends IFieldConfig {
 
     width?: number | 'auto'
 
+    align?: string
+
     hide?: boolean
 
     isCopyField?: boolean

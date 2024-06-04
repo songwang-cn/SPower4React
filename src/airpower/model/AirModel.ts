@@ -2,6 +2,8 @@ import { AirTableFieldConfig } from "../config/AirTableFieldConfig";
 import { getTableFieldList, getTableFieldConfig } from "../decorator/TableField";
 import { getFieldName } from "../decorator/FieldName";
 import { instanceToPlain } from "class-transformer";
+import { getSearchFieldList, getSearchFieldConfig } from "../decorator/SearchField";
+import { AirSearchFieldConfig } from "../config/AirSearchFieldConfig";
 
 /**
  * 模型基类 AirModel 基类
@@ -19,6 +21,14 @@ export class AirModel {
 
     static getTableFieldName(fieldKey: string) {
         return new this().getTableFieldName(fieldKey)
+    }
+
+    static getSearchFieldList(): string[] {
+        return new this().getSearchFieldList()
+    }
+
+    static getSearchFieldConfig(fieldKey: string): AirSearchFieldConfig {
+        return new this().getSearchFieldConfig(fieldKey)
     }
 
     /**
@@ -49,6 +59,14 @@ export class AirModel {
      */
     private getTableFieldName(fieldKey: string): string {
         return getTableFieldConfig(this, fieldKey)?.label || getFieldName(this, fieldKey)
+    }
+
+    private getSearchFieldList() {
+        return getSearchFieldList(this)
+    }
+
+    private getSearchFieldConfig(fieldKey: string): AirSearchFieldConfig {
+        return getSearchFieldConfig(this, fieldKey)
     }
 
     /**

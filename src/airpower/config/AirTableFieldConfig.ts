@@ -8,6 +8,8 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
     width = undefined
 
+    align = 'left'
+
     hide = false
 
     isCopyField = false

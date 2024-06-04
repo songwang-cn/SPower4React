@@ -119,7 +119,6 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 22
             loading={props.loading}
             className='air-table'
             pagination={false}
-            sticky
             expandable={{
                 childrenColumnName,
                 defaultExpandAllRows: true,
@@ -150,7 +149,6 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 22
                     const fieldName = entityClass.getTableFieldName(fieldKey)
                     return (
                         <ANTD.Table.Column
-                            ellipsis
                             align={fieldConfig?.align || align}
                             title={fieldName}
                             dataIndex={fieldKey}

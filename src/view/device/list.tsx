@@ -1,16 +1,19 @@
-import { APanel, ATable, APage } from "@/airpower/component"
+import { APanel, ATable, APage, AToolBar } from "@/airpower/component"
 import { DeviceEntity } from "@/entity/DeviceEntity"
 import { DeviceService } from "@/service/DeviceService"
 import { useTableHook } from "@/airpower/hook/useTableHook"
 import Detail from "./detail"
 import Edit from "./edit"
+import { AirEntity } from "@/airpower/dto/AirEntity"
 
 
 const List = () => {
 
     const {
+        request,
         response,
         isLoading,
+        setRequest,
         onPageChange,
         onDetail,
         onEdit,
@@ -20,7 +23,13 @@ const List = () => {
         detailView: Detail
     })
 
+    function onSearch(param: AirEntity) {
+        console.log(param)
+        setRequest(request.setQueryParams(param))
+    }
+
     return (
+
         <APanel
             title="设备列表"
             footerRight={
@@ -30,6 +39,8 @@ const List = () => {
                 />
             }
         >
+            {JSON.stringify(request.queryParams)}
+            <AToolBar entity={DeviceEntity} onSearch={onSearch} />
             <ATable
                 loading={isLoading}
                 entity={DeviceEntity}
