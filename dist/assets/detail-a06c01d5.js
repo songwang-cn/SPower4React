@@ -1,0 +1,1 @@
+import{j as o}from"./index-9b9e66e0.js";import{D as r}from"./index-60a656ce.js";const a=n=>o.jsx(r,{title:"详情",onCancel:n.onCancel,onConfirm:n.onConfirm,children:JSON.stringify(n.param)});export{a as default};
