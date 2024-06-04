@@ -1,4 +1,7 @@
+import { AirColor } from "../enum/AirColor";
+import { IRecord } from "../interface/IRecord";
 import { ITableFieldConfig } from "../interface/ITableFieldConfig";
+import { AirRecordArray } from "../model/AirRecordArray";
 import { AirFieldConfig } from "./AirFieldConfig";
 
 export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldConfig {
@@ -9,11 +12,19 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
 
     isCopyField = false
 
-    // 加载对象某个字段
     payload = ''
 
-    // 加载对象数组某个字段
     payloadArray = ''
 
     isTag = false
+
+    isBoolean = false
+
+    trueColor = AirColor.SUCCESS
+
+    falseColor = AirColor.ERROR
+
+    showLight = false
+
+    enumRecord?: AirRecordArray<IRecord>
 }

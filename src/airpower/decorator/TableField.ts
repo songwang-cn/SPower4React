@@ -49,5 +49,8 @@ export function getTableFieldConfig<E extends AirModel>(target: E, fieldKey: str
         config = Object.assign(getTableFieldConfig(superClass, fieldKey), config)
     }
 
-    return config
+    /**
+     * 将默认配置返回
+     */
+    return Object.assign(new AirTableFieldConfig(), config)
 }

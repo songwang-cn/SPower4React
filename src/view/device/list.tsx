@@ -32,7 +32,6 @@ const List = () => {
         >
             <ATable
                 loading={isLoading}
-                hideSelect
                 entity={DeviceEntity}
                 dataList={response.items}
                 childrenColumnName="sons"

@@ -1,7 +1,9 @@
 import { AButton } from "@/airpower/component"
+import { AirRequest } from "@/airpower/dto/AirRequest"
 import { AirAlert } from "@/airpower/feedback/AirAlert"
 import { AirConfirm } from "@/airpower/feedback/AirConfirm"
 import { AppConfig } from "@/config/AppConfig"
+import { DeviceEntity } from "@/entity/DeviceEntity"
 
 const componentParty = () => {
 
@@ -13,6 +15,8 @@ const componentParty = () => {
             .show()
         alert(1)
     }
+
+    console.log(new AirRequest<DeviceEntity>())
 
     return (
         <div>

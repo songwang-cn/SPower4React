@@ -10,10 +10,9 @@
 }
 
 .select_fields_pop {
-    max-width: 350px;
+    max-width: 370px;
 
     .ant-tag {
-        width: 66px;
         text-align: center;
         margin: 2px;
     }
@@ -36,4 +35,18 @@
 .copyField {
     cursor: pointer;
     color: var(--color-primary);
+}
+
+
+.lightText {
+    display: flex;
+    align-items: center;
+
+    .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        margin-right: 5px;
+    }
 }

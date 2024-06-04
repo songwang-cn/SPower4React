@@ -18,9 +18,9 @@ interface IUseTableOption<E extends AirEntity> {
 
 /**
  * UseTable 😄 表格自定义Hook 
- * @param entityClass     实体类
- * @param serviceClass    请求类
- * @param option          tableHook选项
+ * @param entityClass 实体类
+ * @param serviceClass 请求类
+ * @param option 其他选项 IUseTableOption
  * @returns isLoading:是否正在加载，
  * @returns response:请求返回
  * @returns onPageChange:分页变化
@@ -59,7 +59,9 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
 
     async function getPage() {
         setLoading(true)
-        setResponse(await service.getPage(request))
+        const res = await service.getPage(request)
+        res.items.map(v => v.type = [1, 2, 3][Math.ceil(Math.random() * 2)])
+        setResponse(res)
         setLoading(false)
     }
 
