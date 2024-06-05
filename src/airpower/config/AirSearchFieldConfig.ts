@@ -15,6 +15,8 @@ export class AirSearchFieldConfig extends AirFieldConfig implements ISearchField
 
   enumRecord?: AirRecordArray<IRecord>
 
+  multiple = false
+
   width = 200
 
   between = false

@@ -9,6 +9,7 @@ import { AlignType } from 'rc-table/lib/interface'
 import { ClassConstructor } from 'class-transformer'
 import { useState } from 'react'
 import { AirConfirm } from '@/airpower/feedback/AirConfirm'
+import { AirDateTimeHelper } from '@/airpower/helper/AirDateTimeHelper'
 
 interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Record<string, any>, index: number) => any> {
     dataList: AirEntity[]
@@ -40,7 +41,7 @@ interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Rec
  * @description 每一列的 key 值可作为 插槽名 传入，返回一个参数为该列数据的方法，此时ts校验props类型会报错，去 ITableCustomRenderProps 添加上相应字段即可
  */
 
-const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 220, align = 'left', childrenColumnName = 'children', multiple = true, checkStrictly = false, ...props }) => {
+const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 140, align = 'left', childrenColumnName = 'children', multiple = true, checkStrictly = false, ...props }) => {
 
     const entityClass = entity.prototype
 
@@ -60,18 +61,20 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 22
         const getText = () => {
             if (fieldConfig.isBoolean) {
                 return (
-                    <div className='lightText'>
+                    <span className='lightText'>
                         {fieldConfig.showLight ? <span className='dot' style={{ backgroundColor: text ? fieldConfig.trueColor : fieldConfig.falseColor }} /> : ''}
                         <span>{text ? '是' : '否'}</span>
-                    </div>
+                    </span>
                 )
             } else if (fieldConfig.enumRecord?.length) {
                 return (
-                    <div className='lightText'>
+                    <span className='lightText'>
                         {fieldConfig.showLight ? <span className='dot' style={{ backgroundColor: fieldConfig.enumRecord.getColor(text) }} /> : ''}
                         <span>{fieldConfig.enumRecord.getLabel(text)}</span>
-                    </div>
+                    </span>
                 )
+            } else if (fieldConfig.dateFormatter) {
+                return AirDateTimeHelper.formatFromMilliSecond(text, fieldConfig.dateFormatter)
             } else {
                 return text
             }
@@ -141,7 +144,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 22
             size='small'
         >
             {
-                !props.hideIndex && <ANTD.Table.Column fixed="left" width={70} align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
+                !props.hideIndex && <ANTD.Table.Column width={40} fixed="left" align={align} title='序号' render={(_, __, index) => <>{index + 1}</>} />
             }
             {
                 allFieldList.filter((key: string) => selectedFieldList.includes(key)).map((fieldKey: string) => {
@@ -151,9 +154,9 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 22
                         <ANTD.Table.Column
                             align={fieldConfig?.align || align}
                             title={fieldName}
+                            width={fieldConfig?.width || 100}
                             dataIndex={fieldKey}
                             key={fieldKey}
-                            width={fieldConfig?.width}
                             render={
                                 (text, record, index) => {
                                     if ((props as any)[`${fieldKey}`]) {

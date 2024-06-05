@@ -1,5 +1,4 @@
 
-import 'reflect-metadata'
 import { ISearchFieldConfig } from '../interface/ISearchFieldConfig'
 import { AirModel } from '../model/AirModel'
 import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'

@@ -1,4 +1,5 @@
 import { AirColor } from "../enum/AirColor";
+import { AirDateTimeFormatter } from "../enum/AirDateTimeFormatter";
 import { IRecord } from "../interface/IRecord";
 import { ITableFieldConfig } from "../interface/ITableFieldConfig";
 import { AirRecordArray } from "../model/AirRecordArray";
@@ -29,4 +30,6 @@ export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldCo
     showLight = false
 
     enumRecord?: AirRecordArray<IRecord>
+
+    dateFormatter?: AirDateTimeFormatter
 }

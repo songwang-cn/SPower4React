@@ -15,9 +15,10 @@ const List = () => {
         isLoading,
         setRequest,
         onPageChange,
-        onDetail,
+        onAdd,
         onEdit,
-        onDelete
+        onDelete,
+        onDetail
     } = useTableHook(DeviceEntity, DeviceService, {
         editView: Edit,
         detailView: Detail
@@ -40,8 +41,9 @@ const List = () => {
             }
         >
             {JSON.stringify(request.queryParams)}
-            <AToolBar entity={DeviceEntity} onSearch={onSearch} />
+            <AToolBar entity={DeviceEntity} onSearch={onSearch} onAdd={onAdd} />
             <ATable
+                hideSelect
                 loading={isLoading}
                 entity={DeviceEntity}
                 dataList={response.items}

@@ -1,9 +1,9 @@
 import Dialog from "@/airpower/component/Dialog"
 
-const Info = (props: any) => {
+export default (props: any) => {
     return (
         <Dialog
-            title="编辑"
+            title={"编辑"}
             onCancel={props.onCancel}
             onConfirm={props.onConfirm}
         >
@@ -12,5 +12,3 @@ const Info = (props: any) => {
         </Dialog>
     )
 }
-
-export default Info

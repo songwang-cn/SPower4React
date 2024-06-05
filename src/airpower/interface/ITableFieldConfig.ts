@@ -1,3 +1,4 @@
+import { AirDateTimeFormatter } from "../enum/AirDateTimeFormatter";
 import { AirRecordArray } from "../model/AirRecordArray";
 import { IFieldConfig } from "./IFieldConfig";
 import { IRecord } from "./IRecord";
@@ -36,4 +37,6 @@ export interface ITableFieldConfig extends IFieldConfig {
     showLight?: boolean
 
     enumRecord?: AirRecordArray<IRecord>
+
+    dateFormatter?: AirDateTimeFormatter
 }

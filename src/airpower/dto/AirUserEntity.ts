@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer'
-import { FieldName } from '../decorator/CustomName'
+import { FieldName } from '../decorator/ClassName'
 import { AirEntity } from './AirEntity'
 import { FormField } from '../decorator/FormField'
 import { IUser } from '../interface/IUser'

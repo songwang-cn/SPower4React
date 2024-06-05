@@ -53,7 +53,7 @@ const Dialog: React.FC<DialogPropTypes> = ({
     /**
      * 吸顶阈值
      */
-    const thresholdDistance = 20
+    const thresholdDistance = 10
 
     function onMouseMove(e: SyntheticEvent) {
         if (isDragging) {

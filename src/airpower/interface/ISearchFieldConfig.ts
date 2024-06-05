@@ -23,6 +23,11 @@ export interface ISearchFieldConfig extends IFieldConfig {
   enumRecord?: IRecord[];
 
   /**
+   * # 是否多选
+   */
+  multiple?: boolean
+
+  /**
    * # 搜索宽度
    */
   width?: number

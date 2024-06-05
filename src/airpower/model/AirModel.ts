@@ -4,13 +4,16 @@ import { getFieldName } from "../decorator/FieldName";
 import { instanceToPlain } from "class-transformer";
 import { getSearchFieldList, getSearchFieldConfig } from "../decorator/SearchField";
 import { AirSearchFieldConfig } from "../config/AirSearchFieldConfig";
+import { getClassName } from "../decorator/ClassName";
 
 /**
  * 模型基类 AirModel 基类
  * author: songwang
  */
 export class AirModel {
-
+    static getClassName(): string {
+        return new this().getClassName()
+    }
     static getTableFieldList(): string[] {
         return new this().getTableFieldList()
     }
@@ -30,7 +33,13 @@ export class AirModel {
     static getSearchFieldConfig(fieldKey: string): AirSearchFieldConfig {
         return new this().getSearchFieldConfig(fieldKey)
     }
-
+    /**
+     * 获取当前对象的类名。
+     * @returns {string} 当前对象的类名。
+     */
+    private getClassName(): string {
+        return getClassName(this.constructor) || this.constructor.name
+    }
     /**
      * 获取表格字段列表。
      * 私有方法，请调用静态方法👆👆👆

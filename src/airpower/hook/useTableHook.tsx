@@ -11,8 +11,9 @@ import { AirPage } from "../dto/AirPage"
 import { AirAbstractService } from "../service/AirAbstractService"
 
 interface IUseTableOption<E extends AirEntity> {
-    detailView?: React.FC,
-    editView?: React.FC,
+    detailView?: React.FC
+    editView?: React.FC
+    addView?: React.FC
     afterGetPage?: (response: AirResponse<E>) => void
 }
 
@@ -40,6 +41,10 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
 
     function onEdit(row: DeviceEntity) {
         DialogHelper.show(option?.editView, row)
+    }
+
+    function onAdd() {
+        DialogHelper.show(option?.addView || option?.editView)
     }
 
     function onDelete(row: DeviceEntity) {
@@ -76,6 +81,7 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
         setRequest,
         onPageChange,
         onDetail,
+        onAdd,
         onEdit,
         onDelete,
         getPage

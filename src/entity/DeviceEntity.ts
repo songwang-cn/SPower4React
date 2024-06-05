@@ -6,6 +6,7 @@ import { FactoryEntity } from "./FactoryEntity";
 import { AirRecordArray } from "@/airpower/model/AirRecordArray";
 import { AirColor } from "@/airpower/enum/AirColor";
 import { SearchField } from "@/airpower/decorator/SearchField";
+import { ClassName } from "@/airpower/decorator/ClassName";
 
 export enum DeviceType {
     Produce = 1,
@@ -31,8 +32,11 @@ export const DeviceTypeRecord = AirRecordArray.create([
     }
 ])
 
+@ClassName('设备')
 export class DeviceEntity extends BaseEntity {
-    @TableField()
+    @TableField({
+        isCopyField: true
+    })
     @SearchField()
     @FieldName('设备名称')
     @Expose() name?: string
@@ -57,41 +61,37 @@ export class DeviceEntity extends BaseEntity {
 
     @FieldName('是否生产设备')
     @SearchField({
-        isBoolean: true
+        enumRecord: AirRecordArray.create([
+            {
+                key: 1,
+                label: '是'
+            },
+            {
+                key: 0,
+                label: '否'
+            }
+        ])
     })
     @TableField({
         width: 110,
-        isBoolean: true
+        isBoolean: true,
     })
     @Expose() isProduceDevice?: boolean
 
 
     @FieldName('是否维保设备')
-    @TableField({
-        width: 110,
-        isBoolean: true
-    })
     @Expose() isMaintenanceDevice?: boolean
 
     @FieldName('是否能源设备')
-    @TableField({
-        width: 110,
-        isBoolean: true,
-        showLight: true
-    })
     @Expose() isEnergyDevice?: boolean
 
     @FieldName('是否数采设备')
-    @TableField({
-        width: 110,
-        isBoolean: true
-    })
     @Expose() isDataCollectionDevice?: boolean
 
     @Expose()
     @FieldName('设备类型')
     @SearchField({
-        enumRecord: DeviceTypeRecord
+        enumRecord: DeviceTypeRecord,
     })
     @TableField({
         width: 120,
