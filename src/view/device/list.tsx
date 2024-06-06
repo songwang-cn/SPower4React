@@ -5,6 +5,7 @@ import { useTableHook } from "@/airpower/hook/useTableHook"
 import Detail from "./detail"
 import Edit from "./edit"
 import { AirEntity } from "@/airpower/dto/AirEntity"
+import React, { useState } from "react"
 
 
 const List = () => {
@@ -29,6 +30,12 @@ const List = () => {
         setRequest(request.setQueryParams(param))
     }
 
+    const [selectedRows, setSelectedRows] = useState<DeviceEntity[]>([])
+
+    function onSelectChange(selectedRowKeys: React.Key[], selectedRows: DeviceEntity[]) {
+        setSelectedRows(selectedRows)
+    }
+
     return (
 
         <APanel
@@ -41,9 +48,9 @@ const List = () => {
             }
         >
             {JSON.stringify(request.queryParams)}
+            {JSON.stringify(selectedRows)}
             <AToolBar entity={DeviceEntity} onSearch={onSearch} onAdd={onAdd} />
             <ATable
-                hideSelect
                 loading={isLoading}
                 entity={DeviceEntity}
                 dataList={response.items}
@@ -53,6 +60,11 @@ const List = () => {
                 onDetail={onDetail}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onSelectChange={onSelectChange}
+                initSelectRowKeys={[
+                    4134033632078336,
+                    4133346081102336
+                ]}
             />
         </APanel>
     )

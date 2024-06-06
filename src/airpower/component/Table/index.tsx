@@ -7,7 +7,7 @@ import { AppConfig } from '@/config/AppConfig'
 import { AirEntity } from '@/airpower/dto/AirEntity'
 import { AlignType } from 'rc-table/lib/interface'
 import { ClassConstructor } from 'class-transformer'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { AirConfirm } from '@/airpower/feedback/AirConfirm'
 import { AirDateTimeHelper } from '@/airpower/helper/AirDateTimeHelper'
 
@@ -22,15 +22,15 @@ interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Rec
     checkStrictly?: boolean // 当为树形表格时，是否关闭父子联动选择 true时开启联动， false关闭联动
     childrenColumnName?: string // 展示树形数据，默认为 children，可配置
     multiple?: boolean // 是否开启多选
+    initSelectRowKeys?: number[] // 初始化选中的行的key
     customCtrl?: (record: AirEntity, index: number) => any
     beforeCtrl?: (record: AirEntity, index: number) => any
     endCtrl?: (record: AirEntity, index: number) => any
     onDetail?: (record: AirEntity, index: number) => any
     onEdit?: (record: AirEntity, index: number) => any
     onDelete?: (record: AirEntity, index: number) => any
+    onSelectChange?: (selectedRowKeys: React.Key[], selectedRows: AirEntity[]) => any
 }
-
-
 
 /**
  * 
@@ -41,7 +41,7 @@ interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Rec
  * @description 每一列的 key 值可作为 插槽名 传入，返回一个参数为该列数据的方法，此时ts校验props类型会报错，去 ITableCustomRenderProps 添加上相应字段即可
  */
 
-const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 140, align = 'left', childrenColumnName = 'children', multiple = true, checkStrictly = false, ...props }) => {
+const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 150, align = 'left', childrenColumnName = 'children', multiple = true, checkStrictly = false, ...props }) => {
 
     const entityClass = entity.prototype
 
@@ -110,11 +110,14 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 14
         )
     }
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>(props.initSelectRowKeys || []);
 
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
+    const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: AirEntity[]) => {
+        /**
+         * 抛出选中的表格数据
+         */
+        props.onSelectChange!(selectedRowKeys, selectedRows)
+        setSelectedRowKeys(selectedRowKeys);
     }
 
     return (
