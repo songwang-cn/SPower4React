@@ -4,8 +4,9 @@ import { DeviceService } from "@/service/DeviceService"
 import { useTableHook } from "@/airpower/hook/useTableHook"
 import Detail from "./detail"
 import Edit from "./edit"
-import { AirEntity } from "@/airpower/dto/AirEntity"
 import React, { useState } from "react"
+import { Select } from "antd"
+import { AirNotification } from "@/airpower/feedback/AirNotification"
 
 
 const List = () => {
@@ -14,7 +15,7 @@ const List = () => {
         request,
         response,
         isLoading,
-        setRequest,
+        onSearch,
         onPageChange,
         onAdd,
         onEdit,
@@ -25,16 +26,14 @@ const List = () => {
         detailView: Detail
     })
 
-    function onSearch(param: AirEntity) {
-        console.log(param)
-        setRequest(request.setQueryParams(param))
-    }
 
-    const [selectedRows, setSelectedRows] = useState<DeviceEntity[]>([])
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
     function onSelectChange(selectedRowKeys: React.Key[], selectedRows: DeviceEntity[]) {
-        setSelectedRows(selectedRows)
+        setSelectedRowKeys(selectedRowKeys)
     }
+
+    console.log(DeviceEntity.getFormFieldList())
 
     return (
 
@@ -47,9 +46,30 @@ const List = () => {
                 />
             }
         >
-            {JSON.stringify(request.queryParams)}
-            {JSON.stringify(selectedRows)}
-            <AToolBar entity={DeviceEntity} onSearch={onSearch} onAdd={onAdd} />
+            <AToolBar
+                entity={DeviceEntity}
+                onSearch={onSearch}
+                onAdd={onAdd}
+                showImport
+                showExport
+                onImport={() => AirNotification.success('导入导入导入导入导入导入')}
+                onExport={() => AirNotification.success('导出导出导出导出导出导出')}
+                type={
+                    <Select
+                        maxTagCount='responsive'
+                        placeholder='ToolBar自定义插槽'
+                        allowClear
+                        value={request.queryParams?.type}
+                        onChange={value => onSearch({ ...request.queryParams, type: value } as DeviceEntity)}
+                    >
+                        {
+                            [1, 2, 3, 4, 5].map((item: number) => (
+                                <Select.Option key={item} value={item}>选项{item}</Select.Option>
+                            ))
+                        }
+                    </Select>
+                }
+            />
             <ATable
                 loading={isLoading}
                 entity={DeviceEntity}
@@ -61,10 +81,7 @@ const List = () => {
                 onEdit={onEdit}
                 onDelete={onDelete}
                 onSelectChange={onSelectChange}
-                initSelectRowKeys={[
-                    4134033632078336,
-                    4133346081102336
-                ]}
+                initSelectRowKeys={selectedRowKeys}
             />
         </APanel>
     )

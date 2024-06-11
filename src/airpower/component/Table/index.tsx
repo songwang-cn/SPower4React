@@ -10,6 +10,7 @@ import { ClassConstructor } from 'class-transformer'
 import React, { useState } from 'react'
 import { AirConfirm } from '@/airpower/feedback/AirConfirm'
 import { AirDateTimeHelper } from '@/airpower/helper/AirDateTimeHelper'
+import { AirNotification } from '@/airpower/feedback/AirNotification'
 
 interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Record<string, any>, index: number) => any> {
     dataList: AirEntity[]
@@ -22,7 +23,7 @@ interface TablePropTypes extends ITableCustomRenderProps<(text: any, record: Rec
     checkStrictly?: boolean // 当为树形表格时，是否关闭父子联动选择 true时开启联动， false关闭联动
     childrenColumnName?: string // 展示树形数据，默认为 children，可配置
     multiple?: boolean // 是否开启多选
-    initSelectRowKeys?: number[] // 初始化选中的行的key
+    initSelectRowKeys?: React.Key[] // 初始化选中的行的key
     customCtrl?: (record: AirEntity, index: number) => any
     beforeCtrl?: (record: AirEntity, index: number) => any
     endCtrl?: (record: AirEntity, index: number) => any
@@ -51,6 +52,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 15
 
     function onCopyField(fieldValue: string) {
         navigator.clipboard.writeText(fieldValue)
+        AirNotification.success(`复制成功`)
     }
 
     function createFieldNode(fieldKey: string, text: any) {
@@ -103,7 +105,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 15
                             localStorage.setItem(`select_fields_of_${AppConfig.appId}_${entity.name}`, JSON.stringify(__selectedFieldList))
                         }}
                     >
-                        {entityClass.getTableFieldName(fieldKey)}
+                        {entityClass.getFieldName(fieldKey)}
                     </ANTD.Tag.CheckableTag>
                 )}
             </div>
@@ -113,6 +115,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 15
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>(props.initSelectRowKeys || []);
 
     const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: AirEntity[]) => {
+        debugger
         /**
          * 抛出选中的表格数据
          */
@@ -124,6 +127,8 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 15
         <ANTD.Table
             loading={props.loading}
             className='air-table'
+            sticky
+            tableLayout={'auto'}
             pagination={false}
             expandable={{
                 childrenColumnName,
@@ -152,7 +157,7 @@ const Table: React.FC<TablePropTypes> = ({ entity, dataList = [], ctrlWidth = 15
             {
                 allFieldList.filter((key: string) => selectedFieldList.includes(key)).map((fieldKey: string) => {
                     const fieldConfig = entityClass.getTableFieldConfig(fieldKey)
-                    const fieldName = entityClass.getTableFieldName(fieldKey)
+                    const fieldName = entityClass.getFieldName(fieldKey)
                     return (
                         <ANTD.Table.Column
                             align={fieldConfig?.align || align}

@@ -8,7 +8,7 @@ function RouterView() {
   return useRoutes(routes)
 }
 
-function App() {
+const App = () => {
 
   const { locale, theme } = useContext(ConfigProvider.ConfigContext);
 

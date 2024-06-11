@@ -7,6 +7,7 @@ import { AirRecordArray } from "@/airpower/model/AirRecordArray";
 import { AirColor } from "@/airpower/enum/AirColor";
 import { SearchField } from "@/airpower/decorator/SearchField";
 import { ClassName } from "@/airpower/decorator/ClassName";
+import { FormField } from "@/airpower/decorator/FormField";
 
 export enum DeviceType {
     Produce = 1,
@@ -34,22 +35,25 @@ export const DeviceTypeRecord = AirRecordArray.create([
 
 @ClassName('设备')
 export class DeviceEntity extends BaseEntity {
-    @TableField({
-        isCopyField: true
-    })
-    @SearchField()
-    @FieldName('设备名称')
-    @Expose() name?: string
 
     @TableField({
         label: '设备编码',
         isCopyField: true
     })
+    @FormField()
     @Expose() code?: string
+
+    @TableField({
+        isCopyField: true
+    })
+    @SearchField()
+    @FormField()
+    @FieldName('设备名称')
+    @Expose() name?: string
 
 
     @TableField({
-        label: '工厂结构',
+        label: '所在位置',
         payload: 'name'
     })
     @Type(() => FactoryEntity)
@@ -72,10 +76,6 @@ export class DeviceEntity extends BaseEntity {
             }
         ])
     })
-    @TableField({
-        width: 110,
-        isBoolean: true,
-    })
     @Expose() isProduceDevice?: boolean
 
 
@@ -92,11 +92,6 @@ export class DeviceEntity extends BaseEntity {
     @FieldName('设备类型')
     @SearchField({
         enumRecord: DeviceTypeRecord,
-    })
-    @TableField({
-        width: 120,
-        enumRecord: DeviceTypeRecord,
-        showLight: true
     })
     type?: DeviceType
 

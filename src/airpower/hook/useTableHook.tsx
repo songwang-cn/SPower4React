@@ -1,7 +1,7 @@
 import { DeviceEntity } from "@/entity/DeviceEntity"
 import { useState, useRef, useEffect } from "react"
 import { AirEntity } from "../dto/AirEntity"
-import { DialogHelper } from "../helper/DialogHelper"
+import { useDialog } from "../helper/DialogHelper"
 import { ClassConstructor } from "class-transformer"
 import { AirNotification } from "../feedback/AirNotification"
 import { AirRequest } from "../dto/AirRequest"
@@ -34,29 +34,35 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
 
     const service = AirClassTransformerHelper.newInstance(serviceClass)
 
+    const { open } = useDialog()
+
 
     function onDetail(row: E) {
-        DialogHelper.show(option?.detailView, row.copy())
+        open(option?.detailView!, row.copy())
     }
 
     function onEdit(row: DeviceEntity) {
-        DialogHelper.show(option?.editView, row)
+        open(option?.editView!, row)
     }
 
     function onAdd() {
-        DialogHelper.show(option?.addView || option?.editView)
+        open(option?.addView! || option?.editView!)
     }
 
     function onDelete(row: DeviceEntity) {
-        console.log('删除')
-        AirNotification.warning('深处')
+        AirNotification.warning('删除')
     }
 
     function onPageChange(page: AirPage) {
         setRequest(request.setPage(page))
     }
 
-    const [request, setRequest] = useState(new AirRequest<E>(entityClass))
+    function onSearch(param: E) {
+        console.log('onSearch', param)
+        setRequest(request.setQueryParams(param))
+    }
+
+    const [request, setRequest] = useState(new AirRequest<E>())
 
     const [response, setResponse] = useState(new AirResponse<E>())
 
@@ -64,9 +70,7 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
 
     async function getPage() {
         setLoading(true)
-        const res = await service.getPage(request)
-        res.items.map(v => v.type = [1, 2, 3][Math.ceil(Math.random() * 2)])
-        setResponse(res)
+        setResponse(await service.getPage(request))
         setLoading(false)
     }
 
@@ -78,7 +82,7 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
         isLoading,
         request,
         response,
-        setRequest,
+        onSearch,
         onPageChange,
         onDetail,
         onAdd,

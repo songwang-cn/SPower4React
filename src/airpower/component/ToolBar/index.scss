@@ -3,7 +3,11 @@
     display: flex;
     align-items: center;
 
-    .bar-left {}
+    .bar-left {
+        button {
+            margin-right: 6px;
+        }
+    }
 
     .bar-center {
         flex: 1;

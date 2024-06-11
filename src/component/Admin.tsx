@@ -1,4 +1,4 @@
-import { ABody } from '@/airpower/component/index'
+import Body from './Body'
 import { RouterHelper } from '@/airpower/helper/RouterHelper'
 import { IRouter } from '@/airpower/interface/IRouter'
 import { AppConfig } from '@/config/AppConfig'
@@ -13,23 +13,17 @@ const menuList: IRouter[] = [
     component: '/home/index'
   },
   {
-    name: '设备管理',
+    name: '组件',
     icon: 'icon-xiangqing',
     children: [
       {
-        name: '列表',
+        name: '列表（设备）',
         path: '/list',
         icon: 'icon-xiangqing',
         component: '/device/list'
       }
     ]
-  },
-  {
-    name: '组件示例',
-    path: '/componentParty',
-    icon: 'icon-xiangqing',
-    component: '/componentParty/index'
-  },
+  }
 ]
 
 function AdminRouterView() {
@@ -47,9 +41,9 @@ const Admin = () => {
   AppConfig.location = useLocation()
 
   return (
-    <ABody menuList={menuList}>
+    <Body menuList={menuList}>
       <AdminRouterView />
-    </ABody>
+    </Body>
   )
 }
 

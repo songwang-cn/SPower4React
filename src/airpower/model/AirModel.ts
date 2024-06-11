@@ -5,6 +5,8 @@ import { instanceToPlain } from "class-transformer";
 import { getSearchFieldList, getSearchFieldConfig } from "../decorator/SearchField";
 import { AirSearchFieldConfig } from "../config/AirSearchFieldConfig";
 import { getClassName } from "../decorator/ClassName";
+import { getFormFieldConfig, getFormFieldList } from "../decorator/FormField";
+import { AirFormFieldConfig } from "../config/AirFormFieldConfig";
 
 /**
  * 模型基类 AirModel 基类
@@ -22,8 +24,8 @@ export class AirModel {
         return new this().getTableFieldConfig(fieldKey)
     }
 
-    static getTableFieldName(fieldKey: string) {
-        return new this().getTableFieldName(fieldKey)
+    static getFieldName(fieldKey: string) {
+        return new this().getFieldName(fieldKey)
     }
 
     static getSearchFieldList(): string[] {
@@ -32,6 +34,14 @@ export class AirModel {
 
     static getSearchFieldConfig(fieldKey: string): AirSearchFieldConfig {
         return new this().getSearchFieldConfig(fieldKey)
+    }
+
+    static getFormFieldList(): string[] {
+        return new this().getFormFieldList()
+    }
+
+    static getFormFieldConfig(fieldKey: string): AirFormFieldConfig {
+        return new this().getFormFieldConfig(fieldKey)
     }
     /**
      * 获取当前对象的类名。
@@ -66,7 +76,7 @@ export class AirModel {
      * @param fieldKey 字段键，用于标识特定的表字段。
      * @returns 返回字段的标签名称。如果在表字段配置中找到，则返回配置中的标签名称；如果未找到，则返回通用的字段名称。
      */
-    private getTableFieldName(fieldKey: string): string {
+    private getFieldName(fieldKey: string): string {
         return getTableFieldConfig(this, fieldKey)?.label || getFieldName(this, fieldKey)
     }
 
@@ -76,6 +86,14 @@ export class AirModel {
 
     private getSearchFieldConfig(fieldKey: string): AirSearchFieldConfig {
         return getSearchFieldConfig(this, fieldKey)
+    }
+
+    private getFormFieldList() {
+        return getFormFieldList(this)
+    }
+
+    private getFormFieldConfig(fieldKey: string): AirFormFieldConfig {
+        return getFormFieldConfig(this, fieldKey)
     }
 
     /**

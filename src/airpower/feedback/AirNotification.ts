@@ -21,7 +21,7 @@ export class AirNotification {
   /**
    * # 通知默认保留时长 单位 s
    */
-  private duration = 3
+  private duration = 1.5
 
   /**
    * # 顶部偏移量

@@ -1,17 +1,17 @@
-import ABody from '../../component/Body/index'
-import APanel from './Panel/index'
-import AMenu from './Menu/index'
+import APanel from './Panel'
+import AMenu from './Menu'
 import AToolBar from './ToolBar'
-import ATable from './Table/index'
-import AButton from './Button/index'
-import APage from './Page/index'
+import ATable from './Table'
+import AButton from './Button'
+import APage from './Page'
+import AInput from './Input'
 
 export {
-    ABody,
     APanel,
     AMenu,
     AToolBar,
     ATable,
     AButton,
-    APage
+    APage,
+    AInput
 }
