@@ -6,7 +6,6 @@ import { Input, Select } from 'antd'
 import { useEffect, useState, useRef } from 'react'
 import { IRecord } from '@/airpower/interface/IRecord'
 import { AirClassTransformerHelper } from '@/airpower/helper/AirClassTransformerHelper'
-import { AirModel } from '@/airpower/model/AirModel'
 import { IToolbarCustomSlots } from '@/interface/IToolbarCustomSlots'
 
 
@@ -91,11 +90,12 @@ const ToolBar: React.FC<ToolBarPropsType> = ({ showImport = false, showExport = 
                                     </div>
                                 )
                             }
-                            let inputValue = (formData as any)[fieldKey]
+                            let inputValue = (formData as any)[fieldKey] || undefined
                             return (
                                 <div className="search-item">
                                     <Input
                                         allowClear
+                                        value={inputValue}
                                         placeholder={placeholder}
                                         onChange={e => {
                                             inputValue = e.target.value
