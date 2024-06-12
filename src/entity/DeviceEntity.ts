@@ -8,6 +8,7 @@ import { AirColor } from "@/airpower/enum/AirColor";
 import { SearchField } from "@/airpower/decorator/SearchField";
 import { ClassName } from "@/airpower/decorator/ClassName";
 import { FormField } from "@/airpower/decorator/FormField";
+import { AirDateTimeType } from "@/airpower/enum/AirDateTimeType";
 
 export enum DeviceType {
     Produce = 1,
@@ -40,7 +41,9 @@ export class DeviceEntity extends BaseEntity {
         label: '设备编码',
         isCopyField: true
     })
-    @FormField()
+    @FormField({
+        isRequired: true
+    })
     @Expose() code?: string
 
     @TableField({
@@ -76,10 +79,26 @@ export class DeviceEntity extends BaseEntity {
             }
         ])
     })
+    @FormField({
+        isRadioButton: true,
+        enumRecord: AirRecordArray.create([
+            {
+                key: true,
+                label: '是'
+            },
+            {
+                key: false,
+                label: '否'
+            }
+        ])
+    })
     @Expose() isProduceDevice?: boolean
 
 
     @FieldName('是否维保设备')
+    @FormField({
+        isSwitch: true
+    })
     @Expose() isMaintenanceDevice?: boolean
 
     @FieldName('是否能源设备')
@@ -93,6 +112,16 @@ export class DeviceEntity extends BaseEntity {
     @SearchField({
         enumRecord: DeviceTypeRecord,
     })
+    @FormField({
+        enumRecord: DeviceTypeRecord,
+        multiple: true
+    })
     type?: DeviceType
+
+    @Expose()
+    @FormField({
+        dateType: AirDateTimeType.DATETIME
+    })
+    declare createdTime?: number
 
 }

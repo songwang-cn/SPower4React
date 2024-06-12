@@ -1,15 +1,24 @@
 import './index.scss'
 import { SyntheticEvent, useState } from 'react'
-import { Button } from 'antd'
+import { Button, Spin } from 'antd'
+import { FormInstance } from 'antd/lib'
+import { AirNotification } from '@/airpower/feedback/AirNotification'
 
 interface DialogPropTypes {
     title?: string
+    loading?: boolean
     hideFull?: boolean
     width?: string | number
     height?: string | number
     footer?: React.ReactNode,
     children?: React.ReactNode
     closeOnClickBack?: boolean
+    formRef?: FormInstance
+    confirmText?: string
+    cancelText?: string
+    hideConfirm?: boolean
+    hideCancel?: boolean
+    hideFooter?: boolean
     param?: any,
     onConfirm: () => void,
     onCancel: () => void,
@@ -26,7 +35,10 @@ const Dialog: React.FC<DialogPropTypes> = ({
     hideFull = false,
     width = '60%',
     height = '60%',
+    loading = false,
     closeOnClickBack = false,
+    confirmText = '保存',
+    cancelText = '取消',
     onConfirm,
     onCancel,
     ...props
@@ -118,6 +130,23 @@ const Dialog: React.FC<DialogPropTypes> = ({
         setLeft(window.innerWidth / 2 - getWidthNumber(width) / 2)
     }
 
+    /**
+     * 😀
+     * 校验之后提交
+     */
+    function _onConfirm() {
+        if (props.formRef) {
+            props.formRef.validateFields()
+                .then(onConfirm)
+                .catch(({ errorFields }) => {
+                    AirNotification.error(errorFields[0].errors[0])
+                })
+        } else {
+            onConfirm()
+        }
+
+    }
+
 
     return (
         <div className="wrapper"
@@ -147,18 +176,21 @@ const Dialog: React.FC<DialogPropTypes> = ({
                         />
                     </div>
                 </div>
-                <div className="dialog_body">
-                    {props.children}
-                </div>
-                <div className="footer">
-                    {
-                        props.footer ? props.footer :
-                            <>
-                                <Button type='primary' onClick={onConfirm}>确定</Button>
-                                <Button onClick={onCancel}>取消</Button>
-                            </>
-                    }
-                </div>
+                <Spin spinning={loading} wrapperClassName='spin-wrapper'>
+                    <div className="dialog_body">
+                        {props.children}
+                    </div>
+                    {!props.hideFooter ?
+                        <div className="footer">
+                            {
+                                props.footer ? props.footer :
+                                    <>
+                                        {!props.hideConfirm ? <Button type='primary' onClick={_onConfirm}>{confirmText}</Button> : ''}
+                                        {!props.hideCancel ? <Button onClick={onCancel}>{cancelText}</Button> : ''}
+                                    </>
+                            }
+                        </div> : ''}
+                </Spin>
             </div>
         </div >
     )

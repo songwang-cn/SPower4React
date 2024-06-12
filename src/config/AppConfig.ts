@@ -306,7 +306,7 @@ export class AppConfig {
     /**
      * # 是否显示请求成功具体消息
      */
-    static showHttpSuccessMsg = false
+    static showHttpSuccessMsg = true
 
     /**
      * # 设置上次访问的路径

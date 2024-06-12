@@ -1,7 +1,6 @@
-import { DeviceEntity } from "@/entity/DeviceEntity"
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { AirEntity } from "../dto/AirEntity"
-import { useDialog } from "../helper/DialogHelper"
+import { DialogHelper } from "../helper/DialogHelper"
 import { ClassConstructor } from "class-transformer"
 import { AirNotification } from "../feedback/AirNotification"
 import { AirRequest } from "../dto/AirRequest"
@@ -11,9 +10,9 @@ import { AirPage } from "../dto/AirPage"
 import { AirAbstractService } from "../service/AirAbstractService"
 
 interface IUseTableOption<E extends AirEntity> {
-    detailView?: React.FC
-    editView?: React.FC
-    addView?: React.FC
+    detailView?: JSX.Element
+    editView?: JSX.Element
+    addView?: JSX.Element
     afterGetPage?: (response: AirResponse<E>) => void
 }
 
@@ -34,23 +33,24 @@ export const useTableHook = <E extends AirEntity, S extends AirAbstractService<E
 
     const service = AirClassTransformerHelper.newInstance(serviceClass)
 
-    const { open } = useDialog()
-
 
     function onDetail(row: E) {
-        open(option?.detailView!, row.copy())
+        DialogHelper.show(option?.detailView!, row.copy())
     }
 
-    function onEdit(row: DeviceEntity) {
-        open(option?.editView!, row)
+    async function onEdit(row: E) {
+        await DialogHelper.show(option?.editView!, row)
+        getPage()
     }
 
-    function onAdd() {
-        open(option?.addView! || option?.editView!)
+    async function onAdd() {
+        await DialogHelper.show(option?.addView! || option?.editView!)
+        getPage()
     }
 
-    function onDelete(row: DeviceEntity) {
-        AirNotification.warning('删除')
+    async function onDelete(row: E) {
+        await service.deleteById(row.id!, '删除成功')
+        getPage()
     }
 
     function onPageChange(page: AirPage) {

@@ -13,7 +13,7 @@ export const FormField = <E extends AirModel>(formFieldConfig?: IFormFieldConfig
 
     Reflect.defineMetadata(FormFieldKey, list, target)
 
-    Reflect.defineMetadata(FormFieldKey, formFieldConfig, target, key)
+    Reflect.defineMetadata(FormFieldConfigKey, formFieldConfig, target, key)
 }
 
 

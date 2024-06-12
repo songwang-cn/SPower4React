@@ -22,8 +22,8 @@ const List = () => {
         onDelete,
         onDetail
     } = useTableHook(DeviceEntity, DeviceService, {
-        editView: Edit,
-        detailView: Detail
+        editView: <Edit />,
+        detailView: <Detail />
     })
 
 
