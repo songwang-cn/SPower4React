@@ -5,11 +5,11 @@
     border-radius: var(--border-radius);
     padding: 10px;
 
-    .group-title {
-        font-size: 17px;
+    .group-header {
         position: relative;
-        text-indent: 10px;
-        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        padding: 2px 0;
 
         &::before {
             content: '';
@@ -27,16 +27,29 @@
             height: 2px;
             background: var(--color-primary);
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
         }
+
+        .tit {
+            font-size: 17px;
+            text-indent: 10px;
+        }
+
     }
 
     .group-content {
-        padding: 10px;
+        padding: 20px 0;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        transition: all var(--transition-duration);
+
+        &.collapse {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
         &.columns-1 {
             >* {

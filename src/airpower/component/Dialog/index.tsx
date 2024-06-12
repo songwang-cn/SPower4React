@@ -144,7 +144,6 @@ const Dialog: React.FC<DialogPropTypes> = ({
         } else {
             onConfirm()
         }
-
     }
 
 
