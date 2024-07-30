@@ -16,7 +16,7 @@ const Group: React.FC<IGroupPropsType> = ({ title = '标题', ...props }) => {
         <div className="air-group">
             <div className="group-header">
                 <div className='tit'>{title}</div>
-                <DownOutlined className='hoverIcon' onClick={() => setCollapse(!collapse)} />
+                <i className='hoverIcon airpower icon-xiala' onClick={() => setCollapse(!collapse)}/>
             </div>
             <div className={`group-content columns-${props.columns || 1} ${collapse ? 'collapse' : ''}`}>
                 {props.children}

@@ -1,0 +1,1 @@
+import{bg as t,bp as e}from"./index-83662eaa.js";const o=()=>t.jsxs(e,{title:"首页",children:[t.jsx("p",{children:"测试环境"}),t.jsx("p",{children:"blackbeans"}),t.jsx("p",{children:"https://changzheng.test.holdhopecloud.com/api/"}),t.jsx("p",{children:"https://static.test.holdhopecloud.com/"})]});export{o as default};

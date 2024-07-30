@@ -62,6 +62,10 @@
             justify-content: space-between;
             padding: 0 10px;
 
+            >*{
+                margin: 0 5px;
+            }
+
             .bread {
                 display: flex;
                 align-items: center;
@@ -89,6 +93,12 @@
                 flex: 1;
                 display: flex;
                 justify-content: flex-end;
+            }
+
+            .setting{
+                .airpower{
+                    font-size: 24px;
+                }
             }
 
             .user {

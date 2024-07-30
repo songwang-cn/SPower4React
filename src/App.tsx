@@ -3,14 +3,14 @@ import { routes } from './config/router'
 import { ConfigProvider } from 'antd'
 import { useContext, useLayoutEffect } from 'react'
 import { StyleProvider } from '@ant-design/cssinjs'
+import { useTheme } from './hook/useTheme'
 
 function RouterView() {
   return useRoutes(routes)
 }
 
 const App = () => {
-
-  const { locale, theme } = useContext(ConfigProvider.ConfigContext);
+  const { locale, theme } = useContext(ConfigProvider.ConfigContext)
 
   /**
    * 😱
@@ -19,22 +19,26 @@ const App = () => {
    */
   useLayoutEffect(() => {
     ConfigProvider.config({
-      holderRender: (children) => (
+      holderRender: children => (
         <StyleProvider hashPriority="high">
-          <ConfigProvider prefixCls="static" iconPrefixCls="icon" locale={locale} theme={theme}>
+          <ConfigProvider
+            prefixCls="static"
+            iconPrefixCls="icon"
+            locale={locale}
+            theme={useTheme()}
+          >
             {children}
           </ConfigProvider>
         </StyleProvider>
       ),
-    });
-  }, [locale, theme]);
+    })
+  }, [locale, theme])
 
   return (
     <BrowserRouter>
       <RouterView />
     </BrowserRouter>
   )
-
 }
 
 export default App

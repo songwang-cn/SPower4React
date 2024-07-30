@@ -1,1 +1,0 @@
-import{j as e,bg as s}from"./index-9b9e66e0.js";const l=()=>e.jsxs(s,{title:"首页",children:[e.jsx("p",{children:"开发环境"}),e.jsx("p",{children:"blackbeans"}),e.jsx("p",{children:"http://blackbeans.holdhope.cloud:666/api/"}),e.jsx("p",{children:"http://static.holdhope.cloud:666/"})]});export{l as default};

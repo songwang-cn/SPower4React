@@ -1,8 +1,8 @@
 @font-face {
   font-family: "airpower"; /* Project id 4525935 */
-  src: url('//at.alicdn.com/t/c/font_4525935_e68oscpflmm.woff2?t=1715577161018') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4525935_e68oscpflmm.woff?t=1715577161018') format('woff'),
-       url('//at.alicdn.com/t/c/font_4525935_e68oscpflmm.ttf?t=1715577161018') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4525935_4h9k746k8e1.woff2?t=1721982099792') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4525935_4h9k746k8e1.woff?t=1721982099792') format('woff'),
+       url('//at.alicdn.com/t/c/font_4525935_4h9k746k8e1.ttf?t=1721982099792') format('truetype');
 }
 
 .airpower {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shezhi:before {
+  content: "\e600";
+}
+
+.icon-xiala:before {
+  content: "\e634";
+}
+
+.icon-waiguan:before {
+  content: "\e663";
 }
 
 .icon-guanbi:before {
