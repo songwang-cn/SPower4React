@@ -38,7 +38,7 @@ const Admin = () => {
 
   AppConfig.location = useLocation()
 
-  const [theme, changeThemeForm] = useState({})
+  const [theme, changeTheme] = useState()
 
   function AdminRouterView() {
     return useRoutes(RouterHelper.initRoute(menuList))
@@ -50,21 +50,30 @@ const Admin = () => {
       '--color-primary',
       themeForm.colorPrimary,
     )
-    changeThemeForm(themeForm)
+    document.documentElement.style.setProperty(
+      '--border-radius',
+      themeForm.borderRadius + 'px',
+    )
+    changeTheme(themeForm)
+    console.log(theme)
     localStorage.setItem('theme', JSON.stringify(themeForm))
   }
 
-  function initTheme() {
+  function initCssProperty() {
     if (localStorage.getItem('theme')) {
+      const themeConfig = JSON.parse(localStorage.getItem('theme') as string)
       document.documentElement.style.setProperty(
         '--color-primary',
-        JSON.parse(localStorage.getItem('theme') as string)?.colorPrimary ||
-          useTheme().token.colorPrimary,
+        themeConfig.colorPrimary || useTheme().token.colorPrimary,
+      )
+      document.documentElement.style.setProperty(
+        '--border-radius',
+        themeConfig.borderRadius || useTheme().token.borderRadius + 'px',
       )
     }
   }
 
-  initTheme()
+  initCssProperty()
 
   return (
     <ConfigProvider locale={zhCN} theme={useTheme()}>

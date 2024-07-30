@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { IRouter } from '@/airpower/interface/IRouter'
 import { AppConfig } from '@/config/AppConfig'
 import { AppStore } from '@/store'
+import Logo from '@/assets/img/logo.png'
 
 function getRouteNameByPath(path: string) {
   let routeName = ''
@@ -36,10 +37,7 @@ const Body: React.FC<{
     <div className="body">
       <div className={collapse ? 'left collapse' : 'left'}>
         <div className="logo">
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-            alt=""
-          />
+          <img src={Logo} />
           {!collapse && <span>{AppConfig.appName}</span>}
         </div>
         <div className="menu">
