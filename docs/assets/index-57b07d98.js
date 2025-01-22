@@ -1,0 +1,1 @@
+import{be as e,bn as t}from"./index-6238ccc5.js";const o=()=>e.jsxs(t,{title:"首页",children:[e.jsx("p",{children:"测试环境"}),e.jsx("p",{children:"blackbeans"}),e.jsx("p",{children:"https://changzheng.test.holdhopecloud.com/api/"}),e.jsx("p",{children:"https://static.test.holdhopecloud.com/"})]});export{o as default};
